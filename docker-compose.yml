@@ -5,10 +5,9 @@
 # (PORT default 8081 agar tidak tabrakan dengan frontend trac di 8080.)
 services:
   porto:
-    # Build lokal (Dockge Deploy) atau image GHCR dari CI (docker compose pull).
+    # Build lokal di VPS (cache layer membuat rebuild ±1 menit bila deps tak berubah).
     build: .
-    image: ghcr.io/libratechdev/porto-prima:latest
-    pull_policy: always
+    image: porto-win8
     container_name: porto-win8
     restart: unless-stopped
     ports:

@@ -6,42 +6,8 @@ on:
       - main
 
 jobs:
-  build-and-push:
-    name: Build & Push Docker Image to GHCR
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Lowercase Repository Name
-        id: repo_name
-        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_OUTPUT
-
-      - name: Build and Push Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ steps.repo_name.outputs.REPO }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
   deploy:
     name: Deploy Application to VPS
-    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: SSH into VPS and Deploy
@@ -72,14 +38,8 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            echo "Logging in to GHCR on VPS..."
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-            echo "Pulling latest Docker image from GHCR..."
-            docker compose pull porto
-
-            echo "Starting containers with updated image..."
-            docker compose up -d porto tunnel
+            echo "Rebuilding and starting containers..."
+            docker compose up -d --build porto tunnel
 
             echo "Cleaning up unused Docker images..."
             docker image prune -f
