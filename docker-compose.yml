@@ -1,5 +1,7 @@
-# Jalankan: PORT=8080 docker compose up -d --build
-# Di VPS taruh di belakang reverse proxy (Nginx/Caddy) yang terminasi HTTPS.
+# Jalankan: CLOUDFLARE_TUNNEL_TOKEN=<token> docker compose up -d --build
+# Token: Cloudflare dashboard → Zero Trust → Networks → Tunnels → buat tunnel → salin token.
+# Di dashboard tambah Public Hostname: <domain> → http://porto:80
+# (PORT default 8081 agar tidak tabrakan dengan frontend trac di 8080.)
 services:
   porto:
     build: .
@@ -7,5 +9,13 @@ services:
     container_name: porto-win8
     restart: unless-stopped
     ports:
-      # Bind ke localhost saja — yang boleh bicara ke container hanya Nginx host.
-      - "127.0.0.1:${PORT:-8080}:80"
+      # Hanya untuk cek lokal via curl; publik lewat tunnel, bukan port ini.
+      - "127.0.0.1:${PORT:-8081}:80"
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: porto-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN:?isi CLOUDFLARE_TUNNEL_TOKEN dari dashboard Zero Trust}
+    depends_on:
+      - porto
