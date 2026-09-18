@@ -5,12 +5,67 @@ import { profile } from '../data/profile';
 interface Props {
   title?: string;
   description?: string;
+  /** Path kanonis relatif, default mengikuti URL halaman aktif. */
+  canonicalPath?: string;
+  /** Path gambar OG relatif dari public/, default placeholder SVG (TODO: ganti PNG 1200x630). */
+  ogImage?: string;
+  /** Set true untuk halaman yang tidak boleh diindeks. */
+  noindex?: boolean;
 }
 
 const {
-  title = profile.identity.fullName,
+  title = `${profile.identity.fullName} — Software Engineer`,
   description = "Dedicated Software Engineer building distributed systems with Vue.js, FastAPI, Rust, PostgreSQL, & DuckDB. Portofolio bergaya Windows 8 Metro UI.",
+  canonicalPath = Astro.url?.pathname ?? '/',
+  ogImage = '/og-cover.svg',
+  noindex = false,
 } = Astro.props;
+
+// Canonical & OG absolut — membutuhkan `site` di astro.config.mjs.
+const canonicalUrl = Astro.site
+  ? new URL(canonicalPath, Astro.site).href
+  : (Astro.url?.href ?? '/');
+const ogImageUrl = Astro.site ? new URL(ogImage, Astro.site).href : ogImage;
+const siteName = `${profile.identity.fullName} — Portfolio`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.identity.fullName,
+  jobTitle: 'Software Engineer',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Semarang',
+    addressRegion: 'Central Java',
+    addressCountry: 'ID',
+  },
+  url: Astro.site?.href ?? canonicalUrl,
+  sameAs: [
+    profile.contact.linkedin,
+    profile.contact.github,
+    profile.contact.gitlab,
+    profile.contact.instagram,
+  ].filter(Boolean),
+  knowsAbout: [
+    'Vue.js',
+    'FastAPI',
+    'Rust',
+    'PostgreSQL',
+    'DuckDB',
+    'Laravel',
+    'Flutter',
+    'Linux server deployment',
+  ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: Astro.site?.href ?? canonicalUrl,
+  inLanguage: ['id', 'en'],
+  author: { '@type': 'Person', name: profile.identity.fullName },
+};
 ---
 
 <!doctype html>
@@ -20,26 +75,42 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO Meta Tags -->
+    <!-- SEO inti -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={profile.identity.fullName} />
-    <meta name="keywords" content="Primavieri Rhesa Ardana, Software Engineer, Semarang, FastAPI, Rust, Vue.js, DuckDB, PostgreSQL, Fleet Management, Windows 8 Metro Portfolio" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Open Graph & Social Cards -->
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${profile.identity.fullName} — Software Engineer Portfolio`} />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <link rel="canonical" href={Astro.url?.href ?? '/'} />
-    <meta name="theme-color" content="#002b54" />
+    <meta name="twitter:image" content={ogImageUrl} />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D7'><rect width='24' height='24'/><text x='50%' y='65%' font-size='12' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>PR</text></svg>" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#002b54" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#07080c" />
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Structured data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
     <!-- Google Fonts: Plus Jakarta Sans & Outfit for Ultra-High Visibility -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
