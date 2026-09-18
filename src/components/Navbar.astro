@@ -1,0 +1,72 @@
+---
+import { profile } from '../data/profile';
+---
+
+<header class="w-full bg-black/40 backdrop-blur-md border-b border-white/10 sticky top-0 z-40 select-none">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Brand / Start Title -->
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 bg-metro-cobalt flex items-center justify-center font-bold text-white shadow-sm">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.701M10.949 12.6H24V24l-13.051-1.8" />
+        </svg>
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xl font-light tracking-wide text-white">Start</span>
+          <span class="text-xs text-white/50 hidden sm:inline-block">|</span>
+          <span class="text-sm text-white/80 font-normal hidden sm:inline-block">{profile.identity.fullName}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Windows 8 Clock -->
+    <div class="hidden md:flex items-center space-x-3 bg-white/5 px-3 py-1 border border-white/10">
+      <span id="win8-clock-time" class="text-lg font-light tracking-wider text-white">22:00</span>
+      <span class="text-xs text-white/40">•</span>
+      <span id="win8-clock-date" class="text-xs font-normal text-white/75">Minggu, 13 September</span>
+    </div>
+
+    <!-- Controls: Language Switcher, Theme Switcher -->
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <!-- Language Switcher (join buttons) -->
+      <div class="join border border-white/20 p-0.5 bg-black/20">
+        <button
+          id="btn-lang-id"
+          class="btn btn-xs rounded-none border-none px-2.5 transition-colors"
+          title="Bahasa Indonesia"
+        >
+          ID
+        </button>
+        <button
+          id="btn-lang-en"
+          class="btn btn-xs rounded-none border-none px-2.5 transition-colors"
+          title="English"
+        >
+          EN
+        </button>
+      </div>
+
+      <!-- Theme Switcher -->
+      <button
+        id="btn-theme-toggle"
+        class="btn btn-xs btn-outline rounded-none border-white/30 text-white hover:bg-white/20 hover:border-white gap-1 px-2.5"
+        title="Toggle Metro / Metro Dark Theme"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+        <span id="theme-icon-label" class="hidden sm:inline text-[11px] font-normal">Metro</span>
+      </button>
+
+      <!-- Avatar Initial Tile -->
+      <div
+        class="w-8 h-8 bg-metro-purple text-white flex items-center justify-center font-semibold text-xs border border-white/20 cursor-pointer metro-tile"
+        data-target="about"
+        title={profile.identity.fullName}
+      >
+        {profile.identity.initials}
+      </div>
+    </div>
+  </div>
+</header>

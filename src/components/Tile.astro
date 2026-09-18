@@ -1,0 +1,119 @@
+---
+interface LocalizedString {
+  id: string;
+  en: string;
+}
+
+interface LocalizedArray {
+  id: string[];
+  en: string[];
+}
+
+export interface Props {
+  id?: string;
+  size?: 'small' | 'standard' | 'wide' | 'large';
+  color?: string;
+  title: string | LocalizedString;
+  subtitle?: string | LocalizedString;
+  badge?: string;
+  target?: string;
+  externalLink?: string;
+  liveTicker?: LocalizedArray;
+  class?: string;
+}
+
+const {
+  id,
+  size = 'standard',
+  color = 'bg-metro-cobalt',
+  title,
+  subtitle,
+  badge,
+  target,
+  externalLink,
+  liveTicker,
+  class: className = '',
+} = Astro.props;
+
+// Compute grid span classes based on size
+let sizeClasses = 'col-span-1 row-span-1 h-36 min-h-[9rem]';
+if (size === 'small') {
+  sizeClasses = 'col-span-1 row-span-1 h-20 min-h-[5rem]';
+} else if (size === 'wide') {
+  sizeClasses = 'col-span-1 sm:col-span-2 row-span-1 h-36 min-h-[9rem]';
+} else if (size === 'large') {
+  sizeClasses = 'col-span-1 sm:col-span-2 row-span-2 h-76 min-h-[19rem]';
+}
+
+const titleId = typeof title === 'object' ? title.id : title;
+const titleEn = typeof title === 'object' ? title.en : title;
+
+const subtitleId = subtitle ? (typeof subtitle === 'object' ? subtitle.id : subtitle) : null;
+const subtitleEn = subtitle ? (typeof subtitle === 'object' ? subtitle.en : subtitle) : null;
+---
+
+<div
+  id={id}
+  class={`metro-tile ${color} ${sizeClasses} p-4 flex flex-col justify-between select-none relative group ${className}`}
+  data-target={target}
+  data-external-link={externalLink}
+  role={target || externalLink ? 'button' : undefined}
+  tabindex={target || externalLink ? '0' : undefined}
+>
+  <!-- Top Bar: Optional Badge & External Icon -->
+  <div class="flex items-center justify-between w-full z-10">
+    <div class="flex items-center space-x-1.5">
+      {badge && (
+        <span class="text-[10px] tracking-wider uppercase font-bold bg-black/45 px-2 py-0.5 border border-white/20 text-white shadow-sm">
+          {badge}
+        </span>
+      )}
+    </div>
+    {externalLink && (
+      <div class="bg-black/30 p-1 border border-white/20">
+        <svg class="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </div>
+    )}
+  </div>
+
+  <!-- Center Content / Slot / Live Ticker -->
+  <div class="my-auto z-10 flex flex-col justify-center">
+    <slot />
+
+    {liveTicker && (
+      <div class="metro-ticker-container text-xs text-white font-medium mt-1">
+        <div data-lang="id" class="flex flex-col">
+          {liveTicker.id.map((text) => (
+            <span class="metro-ticker-text h-5 flex items-center leading-tight truncate drop-shadow-sm">{text}</span>
+          ))}
+        </div>
+        <div data-lang="en" class="flex flex-col" style="display: none;">
+          {liveTicker.en.map((text) => (
+            <span class="metro-ticker-text h-5 flex items-center leading-tight truncate drop-shadow-sm">{text}</span>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+
+  <!-- Bottom Bar: Title & Subtitle -->
+  <div class="w-full z-10 bg-black/20 -mx-4 -mb-4 px-4 py-2 border-t border-white/10 backdrop-blur-[2px]">
+    <div class="text-sm sm:text-base font-bold text-white leading-tight tracking-tight drop-shadow-sm">
+      <span data-lang="id">{titleId}</span>
+      <span data-lang="en" style="display: none;">{titleEn}</span>
+    </div>
+    {(subtitleId || subtitleEn) && (
+      <div class="text-xs sm:text-[13px] text-white/95 font-medium mt-0.5 truncate drop-shadow-sm">
+        {subtitleId && <span data-lang="id">{subtitleId}</span>}
+        {subtitleEn && <span data-lang="en" style="display: none;">{subtitleEn}</span>}
+      </div>
+    )}
+  </div>
+
+  <!-- Subtle Metro decorative background pattern/watermark -->
+  <div class="absolute -right-2 -bottom-2 opacity-10 pointer-events-none group-hover:opacity-20 transition-opacity">
+    <slot name="watermark" />
+  </div>
+</div>

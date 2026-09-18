@@ -1,0 +1,424 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Tile from '../components/Tile.astro';
+import AppDrawer from '../components/AppDrawer.astro';
+import TechIcon from '../components/TechIcon.astro';
+import { profile, i18nStrings } from '../data/profile';
+---
+
+<Layout>
+  <!-- Windows 8 Top Charm / Navigation Bar -->
+  <Navbar />
+
+  <!-- Main Start Screen Horizontal Panoramic Area -->
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+
+    <!-- Start Screen Title & User Headline -->
+    <div class="mb-8 select-none">
+      <div class="flex flex-wrap items-center gap-3">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-md">
+          <span data-lang="id">{i18nStrings.id.startScreen}</span>
+          <span data-lang="en" style="display: none;">{i18nStrings.en.startScreen}</span>
+        </h1>
+        <span class="text-xs sm:text-sm font-bold text-white tracking-widest uppercase bg-black/40 px-3 py-1 border border-white/20 shadow-sm backdrop-blur-sm">
+          Primavieri Rhesa Ardana
+        </span>
+      </div>
+      <p class="text-base sm:text-lg text-white font-medium mt-2 max-w-3xl leading-relaxed drop-shadow-sm">
+        <span data-lang="id">{profile.identity.title.id}</span>
+        <span data-lang="en" style="display: none;">{profile.identity.title.en}</span>
+      </p>
+    </div>
+
+    <!-- Metro Panoramic Tile Grid -->
+    <div class="space-y-8">
+
+      <!-- ==================== GROUP 1: SPOTLIGHT & FEATURED ==================== -->
+      <div>
+        <div class="text-xs sm:text-sm font-bold uppercase tracking-wider text-white mb-3 select-none flex items-center gap-2 drop-shadow-sm">
+          <span class="w-2.5 h-2.5 bg-metro-mango inline-block shadow-sm"></span>
+          <span data-lang="id">Sorotan & Proyek Terdistribusi</span>
+          <span data-lang="en" style="display: none;">Spotlight & Distributed Systems</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- Featured Tile (Wide): Fleet Management System -->
+          <Tile
+            size="wide"
+            color="bg-metro-mango"
+            title="Fleet Management System"
+            subtitle={{
+              id: "Hybrid: Vue.js + Pinia + FastAPI + Rust + DuckDB + PostgreSQL",
+              en: "Hybrid: Vue.js + Pinia + FastAPI + Rust + DuckDB + PostgreSQL",
+            }}
+            badge="Featured Project"
+            target="fms"
+            liveTicker={{
+              id: [
+                "OLTP: PostgreSQL Transaksional",
+                "OLAP: DuckDB Columnar In-Process",
+                "Compute: Rust Microservice Engine",
+                "Frontend: Vue.js + Pinia Store",
+                "Deployment: Automated CI/CD Linux VPS",
+                "Ingress: Nginx Reverse Proxy + Docker + GoAccess",
+              ],
+              en: [
+                "OLTP: Transactional PostgreSQL",
+                "OLAP: In-Process Columnar DuckDB",
+                "Compute: High-Throughput Rust Worker",
+                "Frontend: Vue.js + Pinia Store",
+                "Deployment: Automated CI/CD Linux VPS",
+                "Ingress: Dockerized Nginx + GoAccess",
+              ],
+            }}
+          >
+            <div class="flex items-center space-x-2 text-white/90 text-xs font-medium">
+              <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
+              <span data-lang="id">Arsitektur Telemetri & Analitik Cepat</span>
+              <span data-lang="en" style="display: none;">Fast Analytics & Telematics Architecture</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">FMS</div>
+          </Tile>
+
+          <!-- About Me Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-cobalt"
+            title={{
+              id: "Tentang Saya",
+              en: "About Me",
+            }}
+            subtitle={{
+              id: "Insinyur Perangkat Lunak Semarang",
+              en: "Software Engineer from Semarang",
+            }}
+            badge="Bio"
+            target="about"
+          >
+            <div class="text-xs text-white/90 font-light line-clamp-2">
+              <span data-lang="id">{profile.identity.summary.id}</span>
+              <span data-lang="en" style="display: none;">{profile.identity.summary.en}</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">PR</div>
+          </Tile>
+
+          <!-- Projects Portfolio Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-purple"
+            title={{
+              id: "Portofolio Proyek",
+              en: "Project Portfolio",
+            }}
+            subtitle={{
+              id: "Aplikasi Enterprise, Web, & Mobile",
+              en: "Enterprise Systems, Web, & Mobile",
+            }}
+            badge="7 Projects"
+            target="projects"
+            liveTicker={{
+              id: [
+                "Custom ERP (Laravel + SQL Server + Redis + Linux)",
+                "App Internal Produksi (REST API + Flutter + Electron)",
+                "Fleet Management System (FastAPI + Rust + DuckDB)",
+                "Indonesian Strategic Syndicate (Astro + Vue)",
+                "PGRI Tembalang Website (Laravel 11 + Filament)",
+                "Perkasa Makmur Compro (React + Redux)",
+                "LMS Serat Kartini (Laravel 11 + Filament)",
+              ],
+              en: [
+                "Custom ERP (Laravel + SQL Server + Redis + Linux)",
+                "Production Internal App (REST API + Flutter + Electron)",
+                "Fleet Management System (FastAPI + Rust + DuckDB)",
+                "Indonesian Strategic Syndicate (Astro + Vue)",
+                "PGRI Tembalang Website (Laravel 11 + Filament)",
+                "Perkasa Makmur Compro (React + Redux)",
+                "LMS Serat Kartini (Laravel 11 + Filament)",
+              ],
+            }}
+          >
+            <div class="text-xs text-white/90 font-light line-clamp-2">
+              <span data-lang="id">Custom ERP, App Internal Produksi, FMS, ISS, PGRI, & lainnya.</span>
+              <span data-lang="en" style="display: none;">Custom ERP, Production App, FMS, ISS, PGRI, & more.</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">PROJ</div>
+          </Tile>
+        </div>
+      </div>
+
+      <!-- ==================== GROUP 2: CAREER, ORGANIZATIONS & ACADEMY ==================== -->
+      <div>
+        <div class="text-xs sm:text-sm font-bold uppercase tracking-wider text-white mb-3 select-none flex items-center gap-2 drop-shadow-sm">
+          <span class="w-2.5 h-2.5 bg-metro-emerald inline-block shadow-sm"></span>
+          <span data-lang="id">Karir, Organisasi, & Pendidikan</span>
+          <span data-lang="en" style="display: none;">Career, Organizations, & Education</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- Experience Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-emerald"
+            title={{
+              id: "Pengalaman Karir",
+              en: "Career Experience",
+            }}
+            subtitle="MULTI REVA PARAMA • Prime Tekno"
+            badge="2+ Years"
+            target="experience"
+            liveTicker={{
+              id: [
+                "MULTI REVA PARAMA (Fullstack Developer)",
+                "Prime Tekno (Founder)",
+                "PT. Rapier Technology (Back End)",
+                "BBPMP Jateng (Project Manager)",
+              ],
+              en: [
+                "MULTI REVA PARAMA (Fullstack Developer)",
+                "Prime Tekno (Founder)",
+                "PT. Rapier Technology (Back End)",
+                "BBPMP Jateng (Project Manager)",
+              ],
+            }}
+          >
+            <div class="text-xs text-white/90 font-light">
+              <span data-lang="id">Insinyur Perangkat Lunak Enterprise</span>
+              <span data-lang="en" style="display: none;">Enterprise Software Engineer</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">EXP</div>
+          </Tile>
+
+          <!-- Organizations & Leadership Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-purple"
+            title={{
+              id: "Organisasi & Leadership",
+              en: "Organizations & Leadership",
+            }}
+            subtitle="Head of R&D DNCC • HMTI UDINUS"
+            badge="Leadership"
+            target="organizations"
+            liveTicker={{
+              id: [
+                "Head of R&D Specialist (DNCC 2023–2024)",
+                "Ketua Pelaksana: Hi Technology 2024",
+                "Wakil Ketua: TechVerse 2024 (DNCC)",
+                "Sponsorship: Semnasti & Dinacom 2024",
+                "Koordinator Lapangan & MC (HMTI)",
+              ],
+              en: [
+                "Head of R&D Specialist (DNCC 2023–2024)",
+                "Project Leader: Hi Technology 2024",
+                "Vice Project Leader: TechVerse 2024",
+                "Sponsorship: Semnasti & Dinacom 2024",
+                "Field Coordinator & MC (HMTI)",
+              ],
+            }}
+          >
+            <div class="text-xs text-white/90 font-light line-clamp-2">
+              <span data-lang="id">8 Peran Kepemimpinan & Kepanitiaan DNCC & HMTI</span>
+              <span data-lang="en" style="display: none;">8 Leadership & Committee Roles in DNCC & HMTI</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">ORG</div>
+          </Tile>
+
+          <!-- Skills & Tech Stack Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-amber"
+            title={{
+              id: "Keahlian & Stack",
+              en: "Skills & Tech Stack",
+            }}
+            subtitle="Laravel • Flutter • Electron • SQL Server • Linux"
+            badge="Core Tech"
+            target="skills"
+          >
+            <div class="flex flex-wrap gap-1 mt-1">
+              <span class="badge badge-xs bg-black/35 text-white border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                <TechIcon name="laravel" class="w-2.5 h-2.5" />
+                <span>Laravel</span>
+              </span>
+              <span class="badge badge-xs bg-black/35 text-white border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                <TechIcon name="flutter" class="w-2.5 h-2.5" />
+                <span>Flutter</span>
+              </span>
+              <span class="badge badge-xs bg-black/35 text-white border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                <TechIcon name="electron" class="w-2.5 h-2.5" />
+                <span>Electron</span>
+              </span>
+              <span class="badge badge-xs bg-black/35 text-white border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                <TechIcon name="sqlserver" class="w-2.5 h-2.5" />
+                <span>SQL Server</span>
+              </span>
+              <span class="badge badge-xs bg-black/35 text-white border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                <TechIcon name="redis" class="w-2.5 h-2.5" />
+                <span>Redis</span>
+              </span>
+              <span class="badge badge-xs bg-black/35 text-white border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                <TechIcon name="linux" class="w-2.5 h-2.5" />
+                <span>Linux</span>
+              </span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">DEV</div>
+          </Tile>
+
+          <!-- Education Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-teal"
+            title={{
+              id: "Pendidikan & Sertifikasi",
+              en: "Education & Credentials",
+            }}
+            subtitle="BNSP Web Developer • S1 UDINUS"
+            badge="BNSP Certified"
+            target="skills"
+          >
+            <div class="text-xs text-white/90 font-light">
+              <span data-lang="id">Sertifikasi Kompetensi BNSP Web Developer • S1 UDINUS</span>
+              <span data-lang="en" style="display: none;">BNSP Web Developer Certified • B.CS UDINUS</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">EDU</div>
+          </Tile>
+        </div>
+      </div>
+
+      <!-- ==================== GROUP 3: RESUME, RESEARCH, SOCIAL & CONNECT ==================== -->
+      <div>
+        <div class="text-xs sm:text-sm font-bold uppercase tracking-wider text-white mb-3 select-none flex items-center gap-2 drop-shadow-sm">
+          <span class="w-2.5 h-2.5 bg-metro-crimson inline-block shadow-sm"></span>
+          <span data-lang="id">Resume, Publikasi, & Jaringan</span>
+          <span data-lang="en" style="display: none;">Resume, Publications, & Socials</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- Curriculum Vitae / Resume Tile (Wide) -->
+          <Tile
+            size="wide"
+            color="bg-metro-crimson"
+            title={{
+              id: "Curriculum Vitae",
+              en: "Curriculum Vitae",
+            }}
+            subtitle="Primavieri Rhesa Ardana • Software Engineer"
+            badge="Verified CV"
+            externalLink={profile.contact.cv}
+          >
+            <div class="flex items-center space-x-3 text-white/95">
+              <div class="p-2.5 bg-black/30 border border-white/20 shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div class="text-xs leading-snug">
+                <div class="font-bold flex items-center gap-1.5 text-white">
+                  <span data-lang="id">Buka Dokumen CV Resmi (Google Drive)</span>
+                  <span data-lang="en" style="display: none;">Open Official CV Document (Google Drive)</span>
+                </div>
+                <div class="text-white/80 font-light mt-0.5 line-clamp-2">
+                  <span data-lang="id">Ringkasan kualifikasi, rekam jejak enterprise, arsitektur sistem terdistribusi, & sertifikasi kompetensi.</span>
+                  <span data-lang="en" style="display: none;">Qualifications summary, enterprise track record, distributed systems architecture, & certified credentials.</span>
+                </div>
+              </div>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">CV</div>
+          </Tile>
+
+          <!-- Scientific Publications Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-mango"
+            title={{
+              id: "Publikasi Ilmiah",
+              en: "Publications",
+            }}
+            subtitle="Jurnal JISI & Jurnal Abdi"
+            badge="Research"
+            target="publications"
+          >
+            <div class="text-xs text-white/90 font-light line-clamp-2">
+              <span data-lang="id">Multi-Tier LMS (SINTA 2) • Sosialisasi SEKARI (SINTA 3)</span>
+              <span data-lang="en" style="display: none;">Multi-Tier LMS (SINTA 2) • SEKARI Socialization (SINTA 3)</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">PUB</div>
+          </Tile>
+
+          <!-- Contact Tile -->
+          <Tile
+            size="standard"
+            color="bg-metro-teal"
+            title={{
+              id: "Hubungi Saya",
+              en: "Get In Touch",
+            }}
+            subtitle={profile.contact.email}
+            badge="Direct"
+            target="contact"
+          >
+            <div class="text-xs text-white/90 font-light">
+              <span data-lang="id">Semarang, Jawa Tengah • Email & Sosial</span>
+              <span data-lang="en" style="display: none;">Semarang, Central Java • Email & Socials</span>
+            </div>
+            <div slot="watermark" class="text-7xl font-mono font-bold text-white">MAIL</div>
+          </Tile>
+
+          <!-- LinkedIn Shortcut -->
+          <Tile
+            size="small"
+            color="bg-metro-cobalt"
+            title="LinkedIn"
+            subtitle="in/primavieri"
+            externalLink={profile.contact.linkedin}
+          />
+
+          <!-- GitLab Shortcut -->
+          <Tile
+            size="small"
+            color="bg-metro-purple"
+            title="GitLab"
+            subtitle="LibraTechDev"
+            externalLink={profile.contact.gitlab}
+          />
+
+          <!-- GitHub Shortcut -->
+          <Tile
+            size="small"
+            color="bg-metro-steel"
+            title="GitHub"
+            subtitle="LibraTechDev"
+            externalLink={profile.contact.github}
+          />
+
+          <!-- Instagram Shortcut -->
+          <Tile
+            size="small"
+            color="bg-metro-amber"
+            title="Instagram"
+            subtitle="@prmvri"
+            externalLink={profile.contact.instagram}
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Start Screen Footer Note -->
+    <footer class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 select-none gap-2">
+      <div>
+        <span>© 2026 {profile.identity.fullName} • Windows 8 Metro Portfolio</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 bg-metro-emerald inline-block"></span>
+          <span>Astro 5 + Tailwind v4 + daisyUI 5</span>
+        </span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Fullscreen / Sliding Metro App Drawer Component -->
+  <AppDrawer />
+</Layout>

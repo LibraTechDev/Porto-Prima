@@ -1,0 +1,1177 @@
+---
+import { profile, i18nStrings } from '../data/profile';
+import ArchitectureDiagram from './ArchitectureDiagram.astro';
+import TechIcon from './TechIcon.astro';
+
+const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.projects[0];
+---
+
+<div id="metro-app-drawer" class="metro-app-drawer" role="dialog" aria-modal="true">
+  <!-- Top App Bar -->
+  <div class="w-full bg-black/60 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex items-center justify-between sticky top-0 z-50 select-none">
+    <!-- Back Button -->
+    <button
+      id="drawer-back-btn"
+      class="btn btn-sm btn-ghost rounded-none border border-white/20 text-white hover:bg-white/20 gap-2 px-3 font-normal"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      <span data-lang="id">{i18nStrings.id.backToStart}</span>
+      <span data-lang="en" style="display: none;">{i18nStrings.en.backToStart}</span>
+    </button>
+
+    <!-- App Navigation Tabs -->
+    <div class="hidden lg:flex items-center space-x-1 overflow-x-auto py-1">
+      <button data-tab="about" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Tentang</span>
+        <span data-lang="en" style="display: none;">About</span>
+      </button>
+      <button data-tab="fms" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Fleet Management</span>
+        <span data-lang="en" style="display: none;">Fleet Management</span>
+      </button>
+      <button data-tab="experience" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Pengalaman</span>
+        <span data-lang="en" style="display: none;">Experience</span>
+      </button>
+      <button data-tab="organizations" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">{i18nStrings.id.organizations}</span>
+        <span data-lang="en" style="display: none;">{i18nStrings.en.organizations}</span>
+      </button>
+      <button data-tab="projects" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Proyek & GitLab</span>
+        <span data-lang="en" style="display: none;">Projects & GitLab</span>
+      </button>
+      <button data-tab="skills" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Keahlian</span>
+        <span data-lang="en" style="display: none;">Skills</span>
+      </button>
+      <button data-tab="publications" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Publikasi</span>
+        <span data-lang="en" style="display: none;">Publications</span>
+      </button>
+      <button data-tab="education" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Pendidikan</span>
+        <span data-lang="en" style="display: none;">Education</span>
+      </button>
+      <button data-tab="contact" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
+        <span data-lang="id">Kontak</span>
+        <span data-lang="en" style="display: none;">Contact</span>
+      </button>
+    </div>
+
+    <!-- Close Button -->
+    <button
+      id="drawer-close-btn"
+      class="btn btn-sm btn-ghost btn-square rounded-none border border-white/20 text-white hover:bg-metro-crimson hover:border-metro-crimson"
+      title="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <!-- Main Drawer Body -->
+  <div class="max-w-6xl w-full mx-auto px-4 sm:px-8 py-8 flex-1">
+
+    <!-- ==================== TAB 1: ABOUT ME ==================== -->
+    <section id="tab-about" class="drawer-tab-content">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-cobalt font-semibold">
+          <span data-lang="id">Profil Profesional</span>
+          <span data-lang="en" style="display: none;">Professional Profile</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          {profile.identity.fullName}
+        </h2>
+        <p class="text-sm text-white/70 font-light mt-1">
+          <span data-lang="id">{profile.identity.title.id}</span>
+          <span data-lang="en" style="display: none">{profile.identity.title.en}</span>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Bio & Summary -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-black/25 p-6 border-l-4 border-metro-cobalt">
+            <h3 class="text-lg font-semibold text-white mb-2">
+              <span data-lang="id">Ringkasan Eksekutif</span>
+              <span data-lang="en" style="display: none;">Executive Summary</span>
+            </h3>
+            <p class="text-white/90 leading-relaxed text-sm">
+              <span data-lang="id">{profile.identity.summary.id}</span>
+              <span data-lang="en" style="display: none;">{profile.identity.summary.en}</span>
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="text-base font-semibold text-white">
+              <span data-lang="id">Fokus & Spesialisasi</span>
+              <span data-lang="en" style="display: none;">Focus & Specialization</span>
+            </h3>
+            <div data-lang="id" class="space-y-2">
+              {profile.identity.bio.id.map((paragraph) => (
+                <div class="flex items-start space-x-3 text-sm text-white/80">
+                  <span class="w-1.5 h-1.5 bg-metro-teal mt-2 shrink-0"></span>
+                  <span>{paragraph}</span>
+                </div>
+              ))}
+            </div>
+            <div data-lang="en" class="space-y-2" style="display: none;">
+              {profile.identity.bio.en.map((paragraph) => (
+                <div class="flex items-start space-x-3 text-sm text-white/80">
+                  <span class="w-1.5 h-1.5 bg-metro-teal mt-2 shrink-0"></span>
+                  <span>{paragraph}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Facts Panel -->
+        <div class="space-y-4">
+          <div class="bg-black/30 border border-white/10 p-5 space-y-4">
+            <div class="text-xs uppercase tracking-wider font-semibold text-white/60 border-b border-white/10 pb-2 flex items-center justify-between">
+              <div>
+                <span data-lang="id">Informasi Utama</span>
+                <span data-lang="en" style="display: none;">Key Information</span>
+              </div>
+              <span class="badge badge-xs bg-metro-cobalt text-white border-none rounded-none text-[9px] uppercase font-bold">Overview</span>
+            </div>
+
+            <!-- Dedicated CV Card -->
+            <a
+              href={profile.contact.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center justify-between p-3 bg-metro-crimson hover:bg-metro-crimson/85 border border-white/20 transition-all text-white shadow-sm"
+            >
+              <div class="flex items-center gap-2.5">
+                <div class="p-1.5 bg-black/25">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-xs font-bold uppercase tracking-wider">Curriculum Vitae (PDF)</div>
+                  <div class="text-[11px] text-white/80">
+                    <span data-lang="id">Unduh / Buka Dokumen CV</span>
+                    <span data-lang="en" style="display: none;">Download / Open CV</span>
+                  </div>
+                </div>
+              </div>
+              <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+
+            <div>
+              <div class="text-xs text-white/50">
+                <span data-lang="id">Lokasi</span>
+                <span data-lang="en" style="display: none;">Location</span>
+              </div>
+              <div class="text-sm font-medium text-white">
+                <span data-lang="id">{profile.identity.location.id}</span>
+                <span data-lang="en" style="display: none;">{profile.identity.location.en}</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs text-white/50">
+                <span data-lang="id">Posisi Terkini</span>
+                <span data-lang="en" style="display: none;">Current Role</span>
+              </div>
+              <div class="text-sm font-medium text-white">Fullstack Developer @ MULTI REVA PARAMA</div>
+              <div class="text-xs text-white/70">Founder @ Prime Tekno</div>
+            </div>
+
+            <!-- Handled Internal Enterprise Systems -->
+            <div>
+              <div class="text-xs text-white/50 mb-1.5">
+                <span data-lang="id">Aplikasi Internal yang Dikelola</span>
+                <span data-lang="en" style="display: none;">Handled Internal Systems</span>
+              </div>
+              <div class="space-y-2">
+                <div class="p-2.5 bg-black/40 border-l-2 border-metro-mango border-t border-r border-b border-white/10">
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <TechIcon name="laravel" class="w-3.5 h-3.5" />
+                    <span>Custom ERP Enterprise</span>
+                  </div>
+                  <div class="text-[11px] text-white/70 mt-1 flex flex-wrap items-center gap-1">
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="laravel" class="w-2.5 h-2.5" /> Laravel
+                    </span>
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="blade" class="w-2.5 h-2.5" /> Blade
+                    </span>
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="sqlserver" class="w-2.5 h-2.5" /> SQL Server
+                    </span>
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="redis" class="w-2.5 h-2.5" /> Redis
+                    </span>
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="linux" class="w-2.5 h-2.5" /> Linux (Pull Manual)
+                    </span>
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-black/40 border-l-2 border-metro-cobalt border-t border-r border-b border-white/10">
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <TechIcon name="flutter" class="w-3.5 h-3.5" />
+                    <span>App Internal Produksi</span>
+                  </div>
+                  <div class="text-[11px] text-white/70 mt-1 flex flex-wrap items-center gap-1">
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="api" class="w-2.5 h-2.5" /> REST API Laravel
+                    </span>
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="flutter" class="w-2.5 h-2.5" /> Flutter Mobile
+                    </span>
+                    <span class="badge badge-xs bg-black/50 text-white/80 border-none rounded-none text-[9px] inline-flex items-center gap-1">
+                      <TechIcon name="electron" class="w-2.5 h-2.5" /> Electron Desktop
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs text-white/50">
+                <span data-lang="id">Pendidikan Terakhir</span>
+                <span data-lang="en" style="display: none;">Highest Education</span>
+              </div>
+              <div class="text-sm font-medium text-white">S1 Teknik Informatika</div>
+              <div class="text-xs text-white/70">Universitas Dian Nuswantoro (UDINUS)</div>
+            </div>
+
+            <div>
+              <div class="text-xs text-white/50 mb-1.5">
+                <span data-lang="id">Keahlian & Ekosistem Inti</span>
+                <span data-lang="en" style="display: none;">Core Tech & Ecosystem</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="badge badge-xs rounded-none bg-metro-crimson text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="laravel" class="w-3 h-3" />
+                  <span>Laravel</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-cobalt text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="flutter" class="w-3 h-3" />
+                  <span>Flutter</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-teal text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="electron" class="w-3 h-3" />
+                  <span>Electron</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-cobalt text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="sqlserver" class="w-3 h-3" />
+                  <span>SQL Server</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-crimson text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="redis" class="w-3 h-3" />
+                  <span>Redis</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-emerald text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="linux" class="w-3 h-3" />
+                  <span>Linux</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-cobalt text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="vue" class="w-3 h-3" />
+                  <span>Vue 3</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-emerald text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="fastapi" class="w-3 h-3" />
+                  <span>FastAPI</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-mango text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="rust" class="w-3 h-3" />
+                  <span>Rust</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-teal text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="postgresql" class="w-3 h-3" />
+                  <span>PostgreSQL</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-amber text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="duckdb" class="w-3 h-3" />
+                  <span>DuckDB</span>
+                </span>
+                <span class="badge badge-xs rounded-none bg-metro-purple text-white border-none inline-flex items-center gap-1 py-1">
+                  <TechIcon name="docker" class="w-3 h-3" />
+                  <span>Docker</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: FEATURED FLEET MANAGEMENT SYSTEM ==================== -->
+    <section id="tab-fms" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="badge badge-sm rounded-none bg-metro-mango text-white border-none font-semibold uppercase tracking-wider">
+              Featured Architecture
+            </span>
+            <span class="text-xs text-white/60">Distributed Systems & IoT</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+            Fleet Management System
+          </h2>
+          <p class="text-sm text-white/80 font-light mt-1">
+            <span data-lang="id">{fmsProject.tagline.id}</span>
+            <span data-lang="en" style="display: none;">{fmsProject.tagline.en}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Description Block -->
+      <div class="bg-black/25 p-6 border-l-4 border-metro-mango mb-6">
+        <p class="text-white/90 leading-relaxed text-sm sm:text-base">
+          <span data-lang="id">{fmsProject.description.id}</span>
+          <span data-lang="en" style="display: none;">{fmsProject.description.en}</span>
+        </p>
+      </div>
+
+      <!-- Architecture Diagram Component -->
+      <ArchitectureDiagram />
+
+      <!-- Deep Dive Architectural Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <!-- OLTP vs OLAP -->
+        <div class="bg-black/30 border border-white/10 p-5 space-y-4">
+          <h4 class="text-base font-semibold text-white flex items-center gap-2 border-b border-white/10 pb-2">
+            <span class="w-2.5 h-2.5 bg-metro-cobalt"></span>
+            <span data-lang="id">Pemisahan Beban OLTP & OLAP</span>
+            <span data-lang="en" style="display: none;">OLTP & OLAP Separation</span>
+          </h4>
+          <div class="text-xs sm:text-sm text-white/80 space-y-2.5">
+            <p>
+              <strong class="text-white">PostgreSQL (OLTP):</strong>
+              <span data-lang="id"> Menangani operasi ACID transaksional seperti manajemen unit kendaraan, autentikasi sopir, dan status perjalanan aktif.</span>
+              <span data-lang="en" style="display: none;"> Handles transactional ACID operations including vehicle fleet catalog, driver auth, and live trip statuses.</span>
+            </p>
+            <p>
+              <strong class="text-white">DuckDB (OLAP) + Rust Worker:</strong>
+              <span data-lang="id"> Mengeksekusi agregasi metrik telemetri armada secara in-process dan columnar tanpa membebani database operasional PostgreSQL.</span>
+              <span data-lang="en" style="display: none;"> Executes sub-second aggregate telemetry computations using an in-process columnar engine without bottlenecking PostgreSQL.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Infrastructure & Security -->
+        <div class="bg-black/30 border border-white/10 p-5 space-y-4">
+          <h4 class="text-base font-semibold text-white flex items-center gap-2 border-b border-white/10 pb-2">
+            <span class="w-2.5 h-2.5 bg-metro-emerald"></span>
+            <span data-lang="id">Infrastruktur & Pengerasan Keamanan</span>
+            <span data-lang="en" style="display: none;">Infrastructure & Security Hardening</span>
+          </h4>
+          <div class="text-xs sm:text-sm text-white/80 space-y-2.5">
+            <p>
+              <strong class="text-white">Automated CI/CD Pipeline (Linux VPS):</strong>
+              <span data-lang="id"> Pipeline automated CI/CD untuk continuous integration & continuous deployment otomatis langsung ke server Linux VPS saat ada commit baru pada branch produksi.</span>
+              <span data-lang="en" style="display: none;"> Automated CI/CD pipeline executing continuous integration & continuous deployment directly to Linux VPS on new production commits.</span>
+            </p>
+            <p>
+              <strong class="text-white">Docker Compose & Nginx:</strong>
+              <span data-lang="id"> Seluruh microservice dikemas dalam container terisolasi pada VPS dengan Nginx sebagai reverse proxy dan terminasi SSL/TLS.</span>
+              <span data-lang="en" style="display: none;"> Microservices are isolated in containerized VPS networks, fronted by Nginx with TLS termination and gzip caching.</span>
+            </p>
+            <p>
+              <strong class="text-white">UFW, fail2ban, & GoAccess:</strong>
+              <span data-lang="id"> Pertahanan firewall proaktif memblokir serangan brute force otomatis (ban auditor), sementara GoAccess menyajikan metrik akses realtime.</span>
+              <span data-lang="en" style="display: none;"> Active firewall rules defend against brute-force attacks via fail2ban ban auditors, with GoAccess visualizing access logs.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: EXPERIENCE (TIMELINE) ==================== -->
+    <section id="tab-experience" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-emerald font-semibold">
+          <span data-lang="id">Rekam Jejak Karir</span>
+          <span data-lang="en" style="display: none;">Career Track Record</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Pengalaman Profesional</span>
+          <span data-lang="en" style="display: none;">Professional Experience</span>
+        </h2>
+        <p class="text-sm text-white/70 font-light mt-1">
+          <span data-lang="id">Total 2+ tahun berkarya di industri perangkat lunak & organisasi teknologi</span>
+          <span data-lang="en" style="display: none;">2+ years across software industry & technology organizations</span>
+        </p>
+      </div>
+
+      <!-- daisyUI Timeline Component -->
+      <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+        {profile.experiences.map((exp, index) => {
+          const isLeft = index % 2 === 0;
+          return (
+            <li>
+              <div class="timeline-middle">
+                <div class={`w-4 h-4 ${exp.isCurrent ? 'bg-metro-emerald animate-pulse' : 'bg-metro-cobalt'} flex items-center justify-center`}>
+                  <div class="w-1.5 h-1.5 bg-white"></div>
+                </div>
+              </div>
+
+              <div class={`${isLeft ? 'timeline-start md:text-end' : 'timeline-end'} mb-10 bg-black/30 p-5 border border-white/10 hover:border-white/30 transition-colors`}>
+                <div class="flex items-center gap-2 flex-wrap mb-1" class:list={[isLeft ? 'md:justify-end' : '']}>
+                  <time class="font-mono text-xs text-metro-teal">
+                    <span data-lang="id">{exp.period.id}</span>
+                    <span data-lang="en" style="display: none;">{exp.period.en}</span>
+                  </time>
+                  {exp.isCurrent && (
+                    <span class="badge badge-xs bg-metro-emerald text-white border-none rounded-none text-[9px] uppercase font-bold tracking-wider">
+                      <span data-lang="id">Sekarang</span>
+                      <span data-lang="en" style="display: none;">Current</span>
+                    </span>
+                  )}
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-white">
+                  <span data-lang="id">{exp.role.id}</span>
+                  <span data-lang="en" style="display: none;">{exp.role.en}</span>
+                </h3>
+
+                <div class="text-xs text-white/80 font-semibold mb-2">
+                  <span>{exp.company}</span>
+                  <span class="mx-1.5">•</span>
+                  <span class="text-white/60">
+                    <span data-lang="id">{exp.location.id}</span>
+                    <span data-lang="en" style="display: none;">{exp.location.en}</span>
+                  </span>
+                </div>
+
+                <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed mb-3">
+                  <span data-lang="id">{exp.description.id}</span>
+                  <span data-lang="en" style="display: none;">{exp.description.en}</span>
+                </p>
+
+                <div class="flex flex-wrap gap-1.5" class:list={[isLeft ? 'md:justify-end' : '']}>
+                  {exp.badges.map((badge) => (
+                    <span class="badge badge-xs bg-white/10 text-white/90 border-none rounded-none text-[10px]">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <hr class="bg-white/20" />
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <!-- ==================== TAB: ORGANIZATIONS & LEADERSHIP ==================== -->
+    <section id="tab-organizations" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-purple font-semibold">
+          <span data-lang="id">Kepemimpinan & Organisasi Mahasiswa</span>
+          <span data-lang="en" style="display: none;">Student Leadership & Organizations</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Rekam Jejak Organisasi & Kepanitiaan</span>
+          <span data-lang="en" style="display: none;">Organizational & Committee Track Record</span>
+        </h2>
+        <p class="text-sm text-white/70 font-light mt-1">
+          <span data-lang="id">Kepemimpinan strategis di Dian Nuswantoro Computer Club (DNCC) dan Himpunan Mahasiswa Teknik Informatika (HMTI UDINUS)</span>
+          <span data-lang="en" style="display: none;">Strategic leadership across Dian Nuswantoro Computer Club (DNCC) and Informatics Student Association (HMTI UDINUS)</span>
+        </p>
+      </div>
+
+      <!-- Highlights Card (DNCC Head of R&D Integration) -->
+      <div class="bg-black/35 border-l-4 border-metro-purple p-5 sm:p-6 mb-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="badge badge-xs bg-metro-purple text-white border-none rounded-none text-[9px] uppercase font-bold tracking-wider">
+                Core Leadership Term
+              </span>
+              <span class="text-xs font-mono text-white/60">September 2023 – Agustus 2024</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-white">
+              Head of Research & Development (R&D) Department Specialist
+            </h3>
+            <div class="text-xs sm:text-sm font-semibold text-metro-mango">
+              Dian Nuswantoro Computer Club (DNCC)
+            </div>
+            <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed max-w-4xl pt-1">
+              <span data-lang="id">
+                Memimpin divisi riset dan pengembangan teknologi DNCC dalam menyusun kurikulum teknis, pembinaan software engineer muda, serta bersinergi memimpin berbagai kepanitiaan teknologi bergengsi seperti Hi Technology 2024 (Ketua Pelaksana), TechVerse 2024 (Wakil Ketua Pelaksana), Dinacom 2024 (Sponsorship), Semnasti 2024 (Sponsorship), dan koordinator lapangan kegiatan kemahasiswaan.
+              </span>
+              <span data-lang="en" style="display: none;">
+                Led the Research & Development department at DNCC, designing modern software curricula, mentoring student developers, and synergizing across major tech events including Hi Technology 2024 (Project Leader), TechVerse 2024 (Vice Leader), Dinacom 2024 (Sponsorship), Semnasti 2024 (Sponsorship), and field coordinator roles.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- daisyUI Timeline Component for Organizations -->
+      <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+        {profile.organizations.map((org, index) => {
+          const isLeft = index % 2 === 0;
+          return (
+            <li>
+              <div class="timeline-middle">
+                <div class={`w-4 h-4 ${org.isHighlighted ? 'bg-metro-purple animate-pulse' : 'bg-metro-teal'} flex items-center justify-center shadow-sm`}>
+                  <div class="w-1.5 h-1.5 bg-white"></div>
+                </div>
+              </div>
+
+              <div class={`${isLeft ? 'timeline-start md:text-end' : 'timeline-end'} mb-10 bg-black/30 p-5 border border-white/10 hover:border-white/30 transition-colors`}>
+                <div class="flex items-center gap-2 flex-wrap mb-1" class:list={[isLeft ? 'md:justify-end' : '']}>
+                  <time class="font-mono text-xs text-metro-teal font-semibold">
+                    <span data-lang="id">{org.period.id}</span>
+                    <span data-lang="en" style="display: none;">{org.period.en}</span>
+                  </time>
+                  {org.duration && (
+                    <span class="badge badge-xs bg-white/15 text-white/90 border-none rounded-none text-[9px] font-mono">
+                      {org.duration}
+                    </span>
+                  )}
+                  {org.isHighlighted && (
+                    <span class="badge badge-xs bg-metro-purple text-white border-none rounded-none text-[9px] uppercase font-bold">
+                      Key Role
+                    </span>
+                  )}
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-white">
+                  <span data-lang="id">{org.role.id}</span>
+                  <span data-lang="en" style="display: none;">{org.role.en}</span>
+                </h3>
+
+                <div class="text-xs text-white/80 font-semibold mb-2">
+                  <span class="text-metro-mango">{org.organization}</span>
+                  {org.category && (
+                    <>
+                      <span class="mx-1.5">•</span>
+                      <span class="text-white/60">{org.category}</span>
+                    </>
+                  )}
+                </div>
+
+                <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed mb-3">
+                  <span data-lang="id">{org.description.id}</span>
+                  <span data-lang="en" style="display: none;">{org.description.en}</span>
+                </p>
+
+                {org.badges && (
+                  <div class="flex flex-wrap gap-1.5 mb-3" class:list={[isLeft ? 'md:justify-end' : '']}>
+                    {org.badges.map((badge) => (
+                      <span class="badge badge-xs bg-white/10 text-white/90 border-none rounded-none text-[10px]">
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {(org.certificateUrl || org.detailsUrl) && (
+                  <div class="flex flex-wrap gap-2 pt-2 border-t border-white/10" class:list={[isLeft ? 'md:justify-end' : '']}>
+                    {org.certificateUrl && (
+                      <a
+                        href={org.certificateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-xs rounded-none bg-metro-mango hover:bg-metro-mango/80 text-white border-none gap-1 font-normal inline-flex items-center shadow-sm"
+                      >
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
+                        </svg>
+                        <span data-lang="id">Sertifikat Panitia</span>
+                        <span data-lang="en" style="display: none;">Committee Certificate</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                    {org.detailsUrl && (
+                      <a
+                        href={org.detailsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-xs rounded-none bg-white/10 hover:bg-white/20 text-white border-none gap-1 font-normal inline-flex items-center"
+                      >
+                        <span>LinkedIn</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+              <hr class="bg-white/20" />
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <!-- ==================== TAB 4: PROJECTS & GITLAB ==================== -->
+    <section id="tab-projects" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-purple font-semibold">
+          <span data-lang="id">Portofolio Perangkat Lunak</span>
+          <span data-lang="en" style="display: none;">Software Portfolio</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Proyek Unggulan & Kontribusi Perusahaan</span>
+          <span data-lang="en" style="display: none;">Featured Projects & Enterprise Works</span>
+        </h2>
+      </div>
+
+      <!-- Enterprise GitLab Highlight Card -->
+      <div class="bg-black/30 border-l-4 border-metro-purple p-6 mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center space-x-2 mb-1">
+              <span class="badge badge-sm rounded-none bg-metro-purple text-white border-none uppercase font-bold text-[10px] tracking-wider">
+                Enterprise Contributor
+              </span>
+              <span class="text-xs text-white/60">LibraTechDev</span>
+            </div>
+            <h3 class="text-xl font-bold text-white">Enterprise GitLab Contributions</h3>
+            <p class="text-xs text-white/70 font-mono mt-1">
+              gitlab.com/LibraTechDev (Verified Enterprise Codebases)
+            </p>
+          </div>
+          <a
+            href="https://gitlab.com/LibraTechDev"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-sm rounded-none bg-metro-purple hover:bg-metro-purple/80 text-white border-none gap-2 font-normal shrink-0"
+          >
+            <span>gitlab.com/LibraTechDev</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+        <p class="text-sm text-white/80 mt-3 leading-relaxed">
+          <span data-lang="id">Kontribusi berkelanjutan pada repositori kode privat tingkat perusahaan, mencakup pengembangan sistem backend, deployment server Linux standar (Git pull manual), integrasi multi-database, serta rekayasa aplikasi internal operasional di bawah naungan LibraTechDev.</span>
+          <span data-lang="en" style="display: none;">Ongoing contributions across private enterprise codebases, encompassing backend engineering, standard Linux server deployment (manual Git pull), multi-database architecture, and internal operational systems under LibraTechDev.</span>
+        </p>
+
+        <!-- Handled Internal Applications Showcase -->
+        <div class="mt-6 pt-5 border-t border-white/10 space-y-3">
+          <div class="text-xs uppercase tracking-wider text-metro-teal font-bold flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-metro-teal inline-block"></span>
+            <span data-lang="id">Aplikasi Internal Perusahaan yang Ditangani</span>
+            <span data-lang="en" style="display: none;">Handled Enterprise Internal Applications</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 1. Custom ERP -->
+            <div class="bg-black/45 border border-white/10 p-4 space-y-2.5 hover:border-metro-mango/70 transition-colors">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-metro-mango">Core Enterprise System</span>
+                <span class="badge badge-xs bg-metro-purple text-white border-none rounded-none text-[9px] uppercase font-bold">Internal ERP</span>
+              </div>
+              <h4 class="text-base font-bold text-white">Custom ERP</h4>
+              <p class="text-xs text-white/80 font-light leading-relaxed">
+                <span data-lang="id">Sistem ERP internal kustom untuk operasional bisnis terpadu, integrasi multi-database enterprise (SQL Server, MySQL, PostgreSQL), akselerasi caching & session via Redis, templating Blade Engine, serta deployment server Linux via Git pull manual.</span>
+                <span data-lang="en" style="display: none;">Custom internal ERP system powering unified business operations, multi-database enterprise integration (SQL Server, MySQL, PostgreSQL), rapid caching & sessions via Redis, Blade Engine templating, and standard Linux server deployment via manual Git pull.</span>
+              </p>
+              <div class="pt-2 border-t border-white/10">
+                <div class="text-[10px] text-white/50 uppercase tracking-wider font-semibold mb-1">Tech Stack & Infrastructure:</div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="badge badge-xs bg-metro-crimson text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="laravel" class="w-2.5 h-2.5" />
+                    <span>Laravel</span>
+                  </span>
+                  <span class="badge badge-xs bg-white/10 text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="blade" class="w-2.5 h-2.5" />
+                    <span>Blade Engine</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-cobalt text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="sqlserver" class="w-2.5 h-2.5" />
+                    <span>SQL Server</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-teal text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="mysql" class="w-2.5 h-2.5" />
+                    <span>MySQL</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-cobalt text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="postgresql" class="w-2.5 h-2.5" />
+                    <span>PostgreSQL</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-crimson text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="redis" class="w-2.5 h-2.5" />
+                    <span>Redis</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-emerald text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="linux" class="w-2.5 h-2.5" />
+                    <span>Linux (Pull Manual)</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. App Internal Produksi -->
+            <div class="bg-black/45 border border-white/10 p-4 space-y-2.5 hover:border-metro-cobalt/70 transition-colors">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-metro-cobalt">Multi-Platform Ecosystem</span>
+                <span class="badge badge-xs bg-metro-cobalt text-white border-none rounded-none text-[9px] uppercase font-bold">Shopfloor Ops</span>
+              </div>
+              <h4 class="text-base font-bold text-white">App Internal Produksi</h4>
+              <p class="text-xs text-white/80 font-light leading-relaxed">
+                <span data-lang="id">Ekosistem digital manufaktur lantai produksi multi-platform: backend REST API Laravel terpusat yang melayani aplikasi mobile Flutter untuk mobilitas operator lapangan dan aplikasi desktop Electron untuk workstation lini produksi.</span>
+                <span data-lang="en" style="display: none;">Multi-platform manufacturing shopfloor digital ecosystem: unified Laravel REST API backend powering cross-platform Flutter mobile app for field operators and Electron desktop app for assembly line workstations.</span>
+              </p>
+              <div class="pt-2 border-t border-white/10">
+                <div class="text-[10px] text-white/50 uppercase tracking-wider font-semibold mb-1">Tech Stack & Client Apps:</div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="badge badge-xs bg-metro-crimson text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="api" class="w-2.5 h-2.5" />
+                    <span>REST API Laravel</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-cobalt text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="flutter" class="w-2.5 h-2.5" />
+                    <span>Flutter (Mobile App)</span>
+                  </span>
+                  <span class="badge badge-xs bg-metro-teal text-white border-none rounded-none text-[9px] font-mono inline-flex items-center gap-1">
+                    <TechIcon name="electron" class="w-2.5 h-2.5" />
+                    <span>Electron (Desktop App)</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-white/10 text-xs text-white/50 italic flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-white/40 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <div>
+            <span data-lang="id">{i18nStrings.id.confidentialNotice}</span>
+            <span data-lang="en" style="display: none;">{i18nStrings.en.confidentialNotice}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects Grid (All 5 Projects) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {profile.projects.map((proj) => (
+          <div class={`bg-black/30 border ${proj.featured ? 'border-metro-mango/50 hover:border-metro-mango' : 'border-white/10 hover:border-white/30'} p-6 flex flex-col justify-between transition-colors relative`}>
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <div class="text-[11px] uppercase tracking-wider text-metro-teal font-semibold">
+                  <span data-lang="id">{proj.category.id}</span>
+                  <span data-lang="en" style="display: none;">{proj.category.en}</span>
+                </div>
+                {proj.featured && (
+                  <span class="badge badge-xs bg-metro-mango text-white border-none rounded-none text-[9px] uppercase font-bold tracking-wider">
+                    Featured System
+                  </span>
+                )}
+              </div>
+              <h3 class="text-xl font-bold text-white mt-1">{proj.title}</h3>
+              <p class="text-xs text-white/70 font-light mt-0.5">
+                <span data-lang="id">{proj.tagline.id}</span>
+                <span data-lang="en" style="display: none;">{proj.tagline.en}</span>
+              </p>
+              <p class="text-sm text-white/80 font-light mt-3 leading-relaxed">
+                <span data-lang="id">{proj.description.id}</span>
+                <span data-lang="en" style="display: none;">{proj.description.en}</span>
+              </p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap gap-1.5">
+                {proj.tech.map((t) => (
+                  <span class="badge badge-xs bg-white/10 text-white/90 border-none rounded-none text-[10px] inline-flex items-center gap-1">
+                    <TechIcon name={t} class="w-3 h-3" />
+                    <span>{t}</span>
+                  </span>
+                ))}
+              </div>
+
+              <div class="flex items-center gap-2">
+                {proj.id === 'fms' && (
+                  <button
+                    data-tab="fms"
+                    class="drawer-nav-btn btn btn-xs rounded-none bg-metro-mango hover:bg-metro-mango/80 text-white border-none gap-1 shrink-0 font-normal cursor-pointer"
+                  >
+                    <span data-lang="id">Diagram Arsitektur</span>
+                    <span data-lang="en" style="display: none;">Architecture Diagram</span>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                )}
+
+                {proj.link && (
+                  <a
+                    href={proj.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-xs rounded-none bg-metro-cobalt hover:bg-metro-cobalt/80 text-white border-none gap-1 shrink-0 font-normal"
+                  >
+                    <span data-lang="id">{proj.linkText?.id || 'Kunjungi'}</span>
+                    <span data-lang="en" style="display: none;">{proj.linkText?.en || 'Visit'}</span>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: SKILLS & CERTS ==================== -->
+    <section id="tab-skills" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-teal font-semibold">
+          <span data-lang="id">Kapasitas Teknis</span>
+          <span data-lang="en" style="display: none;">Technical Capabilities</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Keahlian, Bahasa, & Sertifikasi</span>
+          <span data-lang="en" style="display: none;">Skills, Languages, & Certifications</span>
+        </h2>
+      </div>
+
+      <!-- Skills Categories Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {profile.skills.map((cat) => (
+          <div class="bg-black/30 border border-white/10 p-5 space-y-3">
+            <h3 class="text-base font-semibold text-white border-b border-white/10 pb-2">
+              <span data-lang="id">{cat.name.id}</span>
+              <span data-lang="en" style="display: none;">{cat.name.en}</span>
+            </h3>
+            <div class="space-y-2">
+              {cat.skills.map((s) => (
+                <div class="flex items-center justify-between text-sm py-1.5 border-b border-white/5 last:border-none">
+                  <span class="text-white/90 flex items-center gap-2">
+                    <TechIcon name={s.name} class="w-4 h-4" />
+                    <span>{s.name}</span>
+                    {s.highlight && <span class="w-1.5 h-1.5 bg-metro-mango rounded-full"></span>}
+                  </span>
+                  <span class="badge badge-xs rounded-none bg-white/10 text-white/70 border-none font-mono text-[10px]">
+                    <span data-lang="id">{s.level.id}</span>
+                    <span data-lang="en" style="display: none;">{s.level.en}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Languages & Certificates Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Languages -->
+        <div class="bg-black/30 border border-white/10 p-5 space-y-3">
+          <h3 class="text-base font-semibold text-white border-b border-white/10 pb-2">
+            <span data-lang="id">{i18nStrings.id.languageProficiency}</span>
+            <span data-lang="en" style="display: none;">{i18nStrings.en.languageProficiency}</span>
+          </h3>
+          <div class="space-y-2">
+            {profile.languages.map((l) => (
+              <div class="flex items-center justify-between text-sm py-1.5 border-b border-white/5 last:border-none">
+                <span class="text-white font-medium">
+                  <span data-lang="id">{l.name.id}</span>
+                  <span data-lang="en" style="display: none;">{l.name.en}</span>
+                </span>
+                <span class="text-xs text-white/70">
+                  <span data-lang="id">{l.level.id}</span>
+                  <span data-lang="en" style="display: none;">{l.level.en}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Certificates -->
+        <div class="bg-black/30 border border-white/10 p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2">
+            <h3 class="text-base font-semibold text-white">
+              <span data-lang="id">{i18nStrings.id.certificatesTitle}</span>
+              <span data-lang="en" style="display: none;">{i18nStrings.en.certificatesTitle}</span>
+            </h3>
+            <span class="badge badge-xs bg-metro-teal text-white border-none rounded-none text-[9px] uppercase font-bold tracking-wider">
+              Verified
+            </span>
+          </div>
+          <div class="space-y-3">
+            {profile.certificates.map((c) => (
+              <div class="py-2 border-b border-white/5 last:border-none flex items-start gap-3">
+                <div class="mt-0.5 p-1.5 bg-white/5 border border-white/10 text-metro-mango shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-white flex flex-wrap items-center gap-2">
+                    <span>{c.title}</span>
+                    {c.title.includes('BNSP') && (
+                      <span class="badge badge-xs bg-metro-crimson text-white border-none rounded-none text-[9px] uppercase font-bold">
+                        National Credential
+                      </span>
+                    )}
+                  </div>
+                  <div class="text-xs text-white/75 font-light mt-1 leading-relaxed">
+                    <span data-lang="id">{c.desc.id}</span>
+                    <span data-lang="en" style="display: none;">{c.desc.en}</span>
+                  </div>
+                  {c.link && (
+                    <div class="mt-2">
+                      <a
+                        href={c.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-xs rounded-none bg-metro-teal hover:bg-metro-teal/80 text-white border-none gap-1 font-normal inline-flex items-center shadow-sm"
+                      >
+                        <span data-lang="id">Buka Sertifikat (Google Drive)</span>
+                        <span data-lang="en" style="display: none;">Open Certificate (Google Drive)</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: PUBLICATIONS ==================== -->
+    <section id="tab-publications" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-mango font-semibold">
+          <span data-lang="id">Karya Ilmiah</span>
+          <span data-lang="en" style="display: none;">Scientific Works</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Publikasi & Desain Konseptual</span>
+          <span data-lang="en" style="display: none;">Publications & Conceptual Designs</span>
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        {profile.publications.map((pub) => (
+          <div class="bg-black/30 border border-white/10 p-6 hover:border-white/30 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="badge badge-sm rounded-none bg-metro-mango text-white border-none font-semibold uppercase text-[10px] tracking-wider">
+                  {pub.journal}
+                </span>
+                {pub.sinta && (
+                  <span class="badge badge-sm rounded-none bg-metro-emerald text-white border-none font-bold uppercase text-[10px] tracking-wider">
+                    {pub.sinta}
+                  </span>
+                )}
+                <span class="text-xs font-mono text-white/60">
+                  {pub.volume} • {pub.year}
+                </span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white">
+                <span data-lang="id">{pub.title.id}</span>
+                <span data-lang="en" style="display: none;">{pub.title.en}</span>
+              </h3>
+
+              {pub.note && (
+                <div class="mt-3 p-3 bg-white/5 border-l-2 border-metro-amber text-xs text-white/80">
+                  <span data-lang="id">{pub.note.id}</span>
+                  <span data-lang="en" style="display: none;">{pub.note.en}</span>
+                </div>
+              )}
+            </div>
+
+            {pub.link && (
+              <div class="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span class="text-[11px] text-white/50 font-mono truncate max-w-xs sm:max-w-md">
+                  {pub.link}
+                </span>
+                <a
+                  href={pub.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-xs rounded-none bg-metro-mango hover:bg-metro-mango/80 text-white border-none gap-1.5 font-normal inline-flex items-center shrink-0"
+                >
+                  <span data-lang="id">Buka Artikel Jurnal</span>
+                  <span data-lang="en" style="display: none;">Read Journal Article</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ==================== TAB 7: EDUCATION ==================== -->
+    <section id="tab-education" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-cobalt font-semibold">
+          <span data-lang="id">Latar Belakang Akademis</span>
+          <span data-lang="en" style="display: none;">Academic Background</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Pendidikan Formal</span>
+          <span data-lang="en" style="display: none;">Formal Education</span>
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        {profile.education.map((edu) => (
+          <div class="bg-black/30 border border-white/10 p-6 hover:border-white/30 transition-colors">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-2 mb-3 gap-1">
+              <div class="text-sm font-mono text-metro-teal">{edu.period}</div>
+              <div class="flex flex-wrap gap-1.5">
+                {edu.badges.map((b) => (
+                  <span class="badge badge-xs rounded-none bg-white/10 text-white/80 border-none text-[10px]">{b}</span>
+                ))}
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-white">{edu.institution}</h3>
+
+            <div class="text-sm text-white/90 font-medium mt-1">
+              <span data-lang="id">{edu.degree.id} — {edu.major.id}</span>
+              <span data-lang="en" style="display: none;">{edu.degree.en} — {edu.major.en}</span>
+            </div>
+
+            {edu.note && (
+              <p class="text-xs text-white/70 font-light mt-2">
+                <span data-lang="id">{edu.note.id}</span>
+                <span data-lang="en" style="display: none;">{edu.note.en}</span>
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ==================== TAB 8: CONTACT ==================== -->
+    <section id="tab-contact" class="drawer-tab-content hidden">
+      <div class="border-b border-white/15 pb-4 mb-6">
+        <div class="text-xs uppercase tracking-widest text-metro-crimson font-semibold">
+          <span data-lang="id">Terhubung</span>
+          <span data-lang="en" style="display: none;">Get In Touch</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <span data-lang="id">Kontak & Jaringan Sosial</span>
+          <span data-lang="en" style="display: none;">Contact & Social Networks</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Email -->
+        <a
+          href={`mailto:${profile.contact.email}`}
+          class="bg-metro-crimson p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
+        >
+          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">Email</div>
+          <div class="my-4 font-bold text-base truncate">{profile.contact.email}</div>
+          <div class="text-xs text-white/80 flex items-center justify-between">
+            <span>Kirim Pesan</span>
+            <span>→</span>
+          </div>
+        </a>
+
+        <!-- LinkedIn -->
+        <a
+          href={profile.contact.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-metro-cobalt p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
+        >
+          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">LinkedIn</div>
+          <div class="my-4 font-bold text-base truncate">in/primavieri</div>
+          <div class="text-xs text-white/80 flex items-center justify-between">
+            <span>Buka Profil</span>
+            <span>↗</span>
+          </div>
+        </a>
+
+        <!-- GitLab -->
+        <a
+          href={profile.contact.gitlab}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-metro-purple p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
+        >
+          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">GitLab (Enterprise)</div>
+          <div class="my-4 font-bold text-base truncate">gitlab.com/LibraTechDev</div>
+          <div class="text-xs text-white/80 flex items-center justify-between">
+            <span>Buka GitLab</span>
+            <span>↗</span>
+          </div>
+        </a>
+
+        <!-- GitHub -->
+        <a
+          href={profile.contact.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-metro-steel p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
+        >
+          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">GitHub</div>
+          <div class="my-4 font-bold text-base truncate">github.com/LibraTechDev</div>
+          <div class="text-xs text-white/80 flex items-center justify-between">
+            <span>Buka Repositori</span>
+            <span>↗</span>
+          </div>
+        </a>
+
+        <!-- Instagram -->
+        <a
+          href={profile.contact.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-metro-mango p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
+        >
+          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">Instagram</div>
+          <div class="my-4 font-bold text-base truncate">@prmvri</div>
+          <div class="text-xs text-white/80 flex items-center justify-between">
+            <span>Buka Instagram</span>
+            <span>↗</span>
+          </div>
+        </a>
+
+        <!-- Curriculum Vitae (PDF) -->
+        <a
+          href={profile.contact.cv}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-metro-crimson p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
+        >
+          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold flex items-center justify-between">
+            <span>Curriculum Vitae</span>
+            <span class="badge badge-xs bg-white/25 text-white border-none rounded-none text-[9px] uppercase font-bold">PDF Drive</span>
+          </div>
+          <div class="my-4 font-bold text-base truncate">Primavieri Rhesa Ardana</div>
+          <div class="text-xs text-white/80 flex items-center justify-between">
+            <span data-lang="id">Unduh / Buka Dokumen CV</span>
+            <span data-lang="en" style="display: none;">Download / Open CV</span>
+            <span>↗</span>
+          </div>
+        </a>
+
+        <!-- Location Badge -->
+        <div class="bg-black/30 border border-white/10 p-5 text-white flex flex-col justify-between select-none">
+          <div class="text-xs uppercase tracking-wider text-white/60 font-semibold">Domisili</div>
+          <div class="my-4 font-bold text-base">Semarang, Jawa Tengah</div>
+          <div class="text-xs text-white/50">Indonesia</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
