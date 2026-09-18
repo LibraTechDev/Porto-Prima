@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Tile from '../components/Tile.astro';
 import AppDrawer from '../components/AppDrawer.astro';
 import TechIcon from '../components/TechIcon.astro';
+import SintaBadge from '../components/molecules/SintaBadge.astro';
 import { profile, i18nStrings } from '../data/profile';
 ---
 
@@ -339,9 +340,13 @@ import { profile, i18nStrings } from '../data/profile';
             badge="Research"
             target="publications"
           >
-            <div class="text-xs text-white/90 font-light line-clamp-2">
-              <span data-lang="id">Multi-Tier LMS (SINTA 2) • Sosialisasi SEKARI (SINTA 3)</span>
-              <span data-lang="en" style="display: none;">Multi-Tier LMS (SINTA 2) • SEKARI Socialization (SINTA 3)</span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              <SintaBadge rank="S2" />
+              <SintaBadge rank="S3" />
+              <span class="text-[10px] text-white/80 font-light">
+                <span data-lang="id">Multi-Tier LMS • SEKARI</span>
+                <span data-lang="en" style="display: none;">Multi-Tier LMS • SEKARI</span>
+              </span>
             </div>
             <div slot="watermark" class="text-7xl font-mono font-bold text-white">PUB</div>
           </Tile>
