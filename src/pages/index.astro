@@ -1,14 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import WelcomeScreen from '../components/WelcomeScreen.astro';
 import Tile from '../components/Tile.astro';
 import AppDrawer from '../components/AppDrawer.astro';
 import TechIcon from '../components/TechIcon.astro';
 import SintaBadge from '../components/molecules/SintaBadge.astro';
-import { profile, i18nStrings } from '../data/profile';
+import { profile } from '../data/profile';
 ---
 
 <Layout>
+  <!-- Windows 8 Lock Screen (dismiss on click) -->
+  <WelcomeScreen />
+
   <!-- Windows 8 Top Charm / Navigation Bar -->
   <Navbar />
 

@@ -178,6 +178,33 @@ header, main, footer {
   transform: translateX(0);
 }
 
+/* Windows 8 Welcome / Lock Screen */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--color-base-100);
+  background-image: var(--metro-bg-gradient);
+  cursor: pointer;
+  /* Identik dengan transisi drawer agar terasa satu bahasa gerak */
+  transition: transform 0.28s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.welcome-screen.welcome-dismissed {
+  transform: translateX(100%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-screen {
+    transition: none;
+  }
+}
+
 /* Architecture Node Styles with Enhanced Visibility */
 .arch-node {
   background: rgba(0, 0, 0, 0.35);

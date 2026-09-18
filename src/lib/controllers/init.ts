@@ -4,6 +4,7 @@ import { initDrawerController } from './drawer';
 import { initI18nController } from './i18n-controller';
 import { initThemeController } from './theme';
 import { initTilesController } from './tiles';
+import { initWelcomeController } from './welcome';
 
 let booted = false;
 
@@ -16,6 +17,7 @@ export function initApp() {
   initClockController();
   initDrawerController();
   initTilesController();
+  initWelcomeController();
 
   document.getElementById('btn-lang-id')?.addEventListener('click', () => setLang('id'));
   document.getElementById('btn-lang-en')?.addEventListener('click', () => setLang('en'));

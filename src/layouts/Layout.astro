@@ -108,6 +108,9 @@ const websiteSchema = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- Tanpa JS, welcome screen tidak bisa di-dismiss: sembunyikan sekalian -->
+    <noscript><style>#welcome-screen{display:none}</style></noscript>
+
     <!-- Structured data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
