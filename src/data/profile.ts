@@ -443,7 +443,7 @@ export const profile: ProfileData = {
       journal: "Jurnal Abdi (Jurnal Pengabdian Kepada Masyarakat)",
       volume: "Vol 6 No 4",
       year: "2024",
-      sinta: "SINTA 3",
+      sinta: "S3",
       note: {
         id: "Terakreditasi SINTA 3. Publikasi implementasi platform digital kemasyarakatan SEKARI untuk pemberdayaan komunitas.",
         en: "Accredited SINTA 3. Published paper on community deployment and digital adoption of the SEKARI platform.",
@@ -459,7 +459,7 @@ export const profile: ProfileData = {
       journal: "JISI (Jurnal Integrasi Sistem Industri)",
       volume: "Vol 7 No 4",
       year: "Desember 2025",
-      sinta: "SINTA 2",
+      sinta: "S2",
       note: {
         id: "Terakreditasi SINTA 2. Desain konseptual arsitektur multi-tier LMS (Bukan sistem production).",
         en: "Accredited SINTA 2. Conceptual architectural design of a multi-tier learning management system (Conceptual design, not production).",
