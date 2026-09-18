@@ -1,0 +1,11 @@
+# Salin jadi config.yml di folder yang sama, lalu isi TUNNEL_ID.
+# Kredensial (<TUNNEL_ID>.json + cert.pem) ditaruh di folder ini juga.
+# Semua file asli di-ignore git — yang di-commit hanya contoh ini.
+tunnel: TUNNEL_ID
+credentials-file: /etc/cloudflared/TUNNEL_ID.json
+ingress:
+  - hostname: primavieri.id
+    service: http://porto:80
+  - hostname: www.primavieri.id
+    service: http://porto:80
+  - service: http_status:404

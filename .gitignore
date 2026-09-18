@@ -48,3 +48,7 @@ coverage/
 
 # Local-only deploy notes (server-specific, not for version control)
 DEPLOY.md
+
+# Cloudflare Tunnel credentials (secret, server-specific)
+cloudflared/*
+!cloudflared/config.example.yml
