@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// TODO: ganti dengan domain produksi final (lalu update public/robots.txt).
-const SITE_URL = 'https://example.com';
+// Domain produksi final.
+const SITE_URL = 'https://primavieri.id';
 
 // https://astro.build/config
 export default defineConfig({

@@ -1,5 +1,4 @@
-# TODO: ganti example.com dengan domain produksi final.
 User-agent: *
 Allow: /
 
-Sitemap: https://example.com/sitemap-index.xml
+Sitemap: https://primavieri.id/sitemap-index.xml
