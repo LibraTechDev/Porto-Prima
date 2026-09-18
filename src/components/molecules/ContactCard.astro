@@ -1,0 +1,20 @@
+---
+export interface Props {
+  label: string;
+  value: string;
+  sub?: string;
+  href?: string;
+  tone?: string;
+}
+const { label, value, sub, href, tone = 'bg-metro-cobalt' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const extra = href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+<Tag {...extra} class={`${tone} p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all select-none ${href ? 'cursor-pointer' : ''}`}>
+  <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">{label}</div>
+  <div class="my-4 font-bold text-base truncate">{value}</div>
+  <div class="text-xs text-white/80 flex items-center justify-between">
+    <span>{sub ?? ''}</span>
+    <span>{href ? '↗' : ''}</span>
+  </div>
+</Tag>

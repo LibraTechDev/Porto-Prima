@@ -1,0 +1,17 @@
+---
+export interface Props {
+  title: string;
+  tag: string;
+  tagTone?: string;
+  desc: string;
+  accent?: string;
+}
+const { title, tag, tagTone = 'bg-metro-cobalt', desc, accent = 'border-l-metro-cobalt' } = Astro.props;
+---
+<div class={`arch-node ${accent}`}>
+  <div class="flex items-center justify-between gap-2">
+    <span class="font-bold text-sm text-white">{title}</span>
+    <span class={`text-[10px] px-2 py-0.5 text-white font-bold font-mono shadow-sm ${tagTone}`}>{tag}</span>
+  </div>
+  <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">{desc}</p>
+</div>

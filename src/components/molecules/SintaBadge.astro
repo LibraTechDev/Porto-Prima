@@ -1,0 +1,14 @@
+---
+import { formatSinta, getSintaTone } from '@/lib/sinta';
+
+export interface Props {
+  rank: string | undefined | null;
+  class?: string;
+}
+const { rank, class: className = '' } = Astro.props;
+---
+{rank && (
+  <span class={`badge badge-sm rounded-none text-white border-none font-bold uppercase text-[10px] tracking-wider ${getSintaTone(rank)} ${className}`}>
+    {formatSinta(rank)}
+  </span>
+)}

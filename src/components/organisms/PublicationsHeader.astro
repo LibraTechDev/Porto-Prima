@@ -1,0 +1,22 @@
+---
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import { countByRank } from '@/lib/sinta';
+import type { PublicationItem } from '@/types/content';
+
+export interface Props {
+  pubs: PublicationItem[];
+}
+const { pubs } = Astro.props;
+const counts = countByRank(pubs);
+const summary = Object.entries(counts).map(([r, n]) => `${n}x ${r}`).join(' • ');
+---
+<SectionHeader
+  eyebrow={{ id: 'Karya Ilmiah', en: 'Scientific Works' }}
+  eyebrowColor="text-metro-mango"
+  title={{ id: 'Publikasi & Desain Konseptual', en: 'Publications & Conceptual Designs' }}
+>
+  <div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-white/60">
+    <span class="badge badge-xs bg-white/10 text-white/80 border-none rounded-none">{pubs.length} Publikasi</span>
+    {summary && <span class="font-mono">{summary} Accredited</span>}
+  </div>
+</SectionHeader>

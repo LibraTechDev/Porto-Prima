@@ -1,0 +1,10 @@
+---
+export interface Props {
+  tone?: string;
+  class?: string;
+}
+const { tone = 'bg-black/45', class: className = '' } = Astro.props;
+---
+<span class={`text-[10px] tracking-wider uppercase font-bold px-2 py-0.5 border border-white/20 text-white shadow-sm ${tone} ${className}`}>
+  <slot />
+</span>

@@ -1,0 +1,34 @@
+---
+import type { LocalizedString } from '@/types/content';
+
+export interface Props {
+  eyebrow: string | LocalizedString;
+  eyebrowColor?: string;
+  title: string | LocalizedString;
+  subtitle?: string | LocalizedString;
+}
+const { eyebrow, eyebrowColor = 'text-metro-cobalt', title, subtitle } = Astro.props;
+const eId = typeof eyebrow === 'object' ? eyebrow.id : eyebrow;
+const eEn = typeof eyebrow === 'object' ? eyebrow.en : eyebrow;
+const tId = typeof title === 'object' ? title.id : title;
+const tEn = typeof title === 'object' ? title.en : title;
+const sId = subtitle ? (typeof subtitle === 'object' ? subtitle.id : subtitle) : null;
+const sEn = subtitle ? (typeof subtitle === 'object' ? subtitle.en : subtitle) : null;
+---
+<div class="border-b border-white/15 pb-4 mb-6">
+  <div class={`text-xs uppercase tracking-widest font-semibold ${eyebrowColor}`}>
+    <span data-lang="id">{eId}</span>
+    <span data-lang="en" style="display: none;">{eEn}</span>
+  </div>
+  <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+    <span data-lang="id">{tId}</span>
+    <span data-lang="en" style="display: none;">{tEn}</span>
+  </h2>
+  {(sId || sEn) && (
+    <p class="text-sm text-white/70 font-light mt-1">
+      {sId && <span data-lang="id">{sId}</span>}
+      {sEn && <span data-lang="en" style="display: none;">{sEn}</span>}
+    </p>
+  )}
+  <slot />
+</div>

@@ -1,0 +1,19 @@
+---
+export interface Props {
+  href: string;
+  tone?: string;
+  class?: string;
+}
+const { href, tone = 'bg-metro-cobalt hover:bg-metro-cobalt/80', class: className = '' } = Astro.props;
+---
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={`btn btn-xs rounded-none text-white border-none gap-1 shrink-0 font-normal inline-flex items-center ${tone} ${className}`}
+>
+  <slot />
+  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+  </svg>
+</a>

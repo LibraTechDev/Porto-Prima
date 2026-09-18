@@ -1,0 +1,15 @@
+---
+import TechIcon from '@/components/TechIcon.astro';
+
+export interface Props {
+  name: string;
+  label?: string;
+  tone?: string;
+  class?: string;
+}
+const { name, label, tone = 'bg-black/35 text-white', class: className = '' } = Astro.props;
+---
+<span class={`badge badge-xs text-white border-none rounded-none text-[9px] inline-flex items-center gap-1 ${tone} ${className}`}>
+  <TechIcon name={name} class="w-2.5 h-2.5" />
+  <span>{label ?? name}</span>
+</span>

@@ -1,0 +1,15 @@
+---
+import type { Lang, LocalizedString } from '@/types/content';
+import { t } from '@/lib/i18n';
+
+export interface Props {
+  value: string | LocalizedString | undefined;
+  lang?: Lang;
+  tag?: 'span' | 'div' | 'p' | 'h1' | 'h2' | 'h3';
+  class?: string;
+}
+const { value, lang = 'id', tag = 'span', class: className = '' } = Astro.props;
+const text = t(typeof value === 'string' ? value : value, lang);
+const Tag = tag as any;
+---
+<Tag class={className}>{text}</Tag>
