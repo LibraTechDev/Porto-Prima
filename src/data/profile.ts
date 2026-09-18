@@ -76,6 +76,7 @@ export interface ProfileData {
     fullName: string;
     shortName: string;
     initials: string;
+    avatar: string;
     title: { id: string; en: string };
     location: { id: string; en: string };
     summary: { id: string; en: string };
@@ -104,6 +105,7 @@ export const profile: ProfileData = {
     fullName: "Primavieri Rhesa Ardana",
     shortName: "Primavieri",
     initials: "PR",
+    avatar: "/images/profile.webp",
     title: {
       id: "Dedicated Software Engineer For Making A Better Society | 2+ Tahun Pengalaman",
       en: "Dedicated Software Engineer For Making A Better Society | 2+ Years Experience",

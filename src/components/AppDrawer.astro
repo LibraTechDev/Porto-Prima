@@ -69,18 +69,30 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
 
     <!-- ==================== TAB 1: ABOUT ME ==================== -->
     <section id="tab-about" class="drawer-tab-content">
-      <div class="border-b border-white/15 pb-4 mb-6">
-        <div class="text-xs uppercase tracking-widest text-metro-cobalt font-semibold">
-          <span data-lang="id">Profil Profesional</span>
-          <span data-lang="en" style="display: none;">Professional Profile</span>
+      <div class="border-b border-white/15 pb-6 mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+        <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 border-2 border-metro-cobalt shadow-lg overflow-hidden bg-black/40">
+          <img
+            src={profile.identity.avatar}
+            alt={profile.identity.fullName}
+            class="w-full h-full object-cover object-[center_20%]"
+            width="96"
+            height="96"
+            loading="lazy"
+          />
         </div>
-        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
-          {profile.identity.fullName}
-        </h2>
-        <p class="text-sm text-white/70 font-light mt-1">
-          <span data-lang="id">{profile.identity.title.id}</span>
-          <span data-lang="en" style="display: none">{profile.identity.title.en}</span>
-        </p>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs uppercase tracking-widest text-metro-cobalt font-semibold">
+            <span data-lang="id">Profil Profesional</span>
+            <span data-lang="en" style="display: none;">Professional Profile</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
+            {profile.identity.fullName}
+          </h2>
+          <p class="text-sm text-white/70 font-light mt-1">
+            <span data-lang="id">{profile.identity.title.id}</span>
+            <span data-lang="en" style="display: none">{profile.identity.title.en}</span>
+          </p>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

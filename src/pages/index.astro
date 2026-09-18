@@ -101,9 +101,21 @@ import { profile } from '../data/profile';
             badge="Bio"
             target="about"
           >
-            <div class="text-xs text-white/90 font-light line-clamp-2">
-              <span data-lang="id">{profile.identity.summary.id}</span>
-              <span data-lang="en" style="display: none;">{profile.identity.summary.en}</span>
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 shrink-0 border border-white/20 shadow-md overflow-hidden bg-black/25">
+                <img
+                  src={profile.identity.avatar}
+                  alt={profile.identity.fullName}
+                  class="w-full h-full object-cover object-[center_20%]"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                />
+              </div>
+              <div class="text-xs text-white/90 font-light line-clamp-2">
+                <span data-lang="id">{profile.identity.summary.id}</span>
+                <span data-lang="en" style="display: none;">{profile.identity.summary.en}</span>
+              </div>
             </div>
             <div slot="watermark" class="text-7xl font-mono font-bold text-white">PR</div>
           </Tile>

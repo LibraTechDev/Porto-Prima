@@ -33,6 +33,7 @@ const personSchema = {
   '@type': 'Person',
   name: profile.identity.fullName,
   jobTitle: 'Software Engineer',
+  image: new URL(profile.identity.avatar, Astro.site?.href ?? canonicalUrl).href,
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Semarang',

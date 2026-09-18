@@ -59,13 +59,23 @@ import { profile } from '../data/profile';
         <span id="theme-icon-label" class="hidden sm:inline text-[11px] font-normal">Metro</span>
       </button>
 
-      <!-- Avatar Initial Tile -->
+      <!-- Avatar Tile -->
       <div
-        class="w-8 h-8 bg-metro-purple text-white flex items-center justify-center font-semibold text-xs border border-white/20 cursor-pointer metro-tile"
+        class="w-8 h-8 bg-metro-purple text-white flex items-center justify-center font-semibold text-xs border border-white/20 cursor-pointer metro-tile overflow-hidden shrink-0"
         data-target="about"
         title={profile.identity.fullName}
       >
-        {profile.identity.initials}
+        {profile.identity.avatar ? (
+          <img
+            src={profile.identity.avatar}
+            alt={profile.identity.fullName}
+            class="w-full h-full object-cover object-[center_20%]"
+            width="32"
+            height="32"
+          />
+        ) : (
+          profile.identity.initials
+        )}
       </div>
     </div>
   </div>
