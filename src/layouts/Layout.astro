@@ -35,6 +35,8 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <link rel="canonical" href={Astro.url?.href ?? '/'} />
+    <meta name="theme-color" content="#002b54" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D7'><rect width='24' height='24'/><text x='50%' y='65%' font-size='12' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>PR</text></svg>" />
