@@ -1,4 +1,6 @@
 ---
+import ArchNode from './molecules/ArchNode.astro';
+import { ARCH_COLUMNS, ARCH_OPS } from '../data/architecture';
 ---
 
 <div class="bg-black/30 border border-white/10 p-4 sm:p-6 my-4 select-none">
@@ -24,129 +26,33 @@
     </div>
   </div>
 
-  <!-- Architecture Flow Grid -->
+  <!-- Architecture Flow Grid (data-driven) -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
-    <!-- Column 1: Client & Ingress Layer -->
-    <div class="space-y-4">
-      <div class="text-xs uppercase tracking-wider text-white font-bold border-b border-white/20 pb-1 flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 bg-metro-cobalt"></span>
-        <span>1. Ingress & Client Layer</span>
-      </div>
-
-      <!-- Nginx / Reverse Proxy Node -->
-      <div class="arch-node border-l-metro-cobalt">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-sm text-white">Nginx Reverse Proxy</span>
-          <span class="text-[10px] bg-metro-cobalt px-2 py-0.5 text-white font-bold font-mono shadow-sm">TLS / Port 443</span>
+    {ARCH_COLUMNS.map((col) => (
+      <div class="space-y-4">
+        <div class="text-xs uppercase tracking-wider text-white font-bold border-b border-white/20 pb-1 flex items-center gap-1.5">
+          <span class={`w-1.5 h-1.5 ${col.dot}`}></span>
+          <span>{col.heading}</span>
         </div>
-        <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">
-          Dockerized on VPS • SSL Termination • Rate Limiting & Ban Auditor
-        </p>
+        {col.nodes.map((n) => (
+          <ArchNode title={n.title} tag={n.tag} tagTone={n.tagTone} desc={n.desc} accent={n.accent} />
+        ))}
       </div>
-
-      <!-- Vue 3 SPA Node -->
-      <div class="arch-node border-l-metro-teal">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-sm text-white">Vue.js 3 SPA</span>
-          <span class="text-[10px] bg-metro-teal px-2 py-0.5 text-white font-bold font-mono shadow-sm">Client GUI</span>
-        </div>
-        <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">
-          Pinia State • Vite Build • Real-time Telemetry Maps & Fleet Monitoring
-        </p>
-      </div>
-    </div>
-
-    <!-- Column 2: Backend & Compute Services -->
-    <div class="space-y-4">
-      <div class="text-xs uppercase tracking-wider text-white font-bold border-b border-white/20 pb-1 flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 bg-metro-emerald"></span>
-        <span>2. Application & Compute</span>
-      </div>
-
-      <!-- FastAPI Node -->
-      <div class="arch-node border-l-metro-emerald">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-sm text-white">FastAPI Core Server</span>
-          <span class="text-[10px] bg-metro-emerald px-2 py-0.5 text-white font-bold font-mono shadow-sm">Async Python</span>
-        </div>
-        <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">
-          Auth, Operational CRUD APIs, WebSocket Streamer, Task Dispatcher
-        </p>
-      </div>
-
-      <!-- Rust Microservice Node -->
-      <div class="arch-node border-l-metro-mango">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-sm text-white">Rust Engine Worker</span>
-          <span class="text-[10px] bg-metro-mango px-2 py-0.5 text-white font-bold font-mono shadow-sm">Zero-Cost Rust</span>
-        </div>
-        <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">
-          Raw Telemetry Ingestion, Parquet Crunching, Metric Aggregation Engine
-        </p>
-      </div>
-    </div>
-
-    <!-- Column 3: Storage & Database Engines -->
-    <div class="space-y-4">
-      <div class="text-xs uppercase tracking-wider text-white font-bold border-b border-white/20 pb-1 flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 bg-metro-amber"></span>
-        <span>3. Dual-Storage Layer</span>
-      </div>
-
-      <!-- PostgreSQL (OLTP) Node -->
-      <div class="arch-node border-l-metro-cobalt">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-sm text-white">PostgreSQL (OLTP)</span>
-          <span class="text-[10px] bg-metro-cobalt px-2 py-0.5 text-white font-bold font-mono shadow-sm">Relational</span>
-        </div>
-        <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">
-          ACID transactions: Fleet inventory, drivers, live trips, user authentication
-        </p>
-      </div>
-
-      <!-- DuckDB (OLAP) Node -->
-      <div class="arch-node border-l-metro-amber">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-sm text-white">DuckDB (OLAP)</span>
-          <span class="text-[10px] bg-metro-amber px-2 py-0.5 text-white font-bold font-mono shadow-sm">Columnar In-Process</span>
-        </div>
-        <p class="text-xs sm:text-[13px] text-white/90 mt-1 font-medium leading-relaxed">
-          Sub-second analytical queries over millions of vehicle telematics rows
-        </p>
-      </div>
-    </div>
+    ))}
   </div>
 
-  <!-- Operations & Security Banner -->
+  <!-- Operations & Security Banner (data-driven) -->
   <div class="mt-6 pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3">
-    <div class="flex items-center space-x-2 bg-white/5 p-2.5 border border-white/5">
-      <div class="w-6 h-6 bg-metro-crimson flex items-center justify-center text-white text-xs font-bold shrink-0">
-        🛡️
+    {ARCH_OPS.map((op) => (
+      <div class="flex items-center space-x-2 bg-white/5 p-2.5 border border-white/5">
+        <div class={`w-6 h-6 ${op.tone} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
+          {op.icon}
+        </div>
+        <div class="truncate">
+          <div class="text-xs font-semibold text-white">{op.title}</div>
+          <div class="text-[11px] text-white/60 truncate">{op.sub}</div>
+        </div>
       </div>
-      <div class="truncate">
-        <div class="text-xs font-semibold text-white">UFW & fail2ban</div>
-        <div class="text-[11px] text-white/60 truncate">Host firewall & ban auditor</div>
-      </div>
-    </div>
-
-    <div class="flex items-center space-x-2 bg-white/5 p-2.5 border border-white/5">
-      <div class="w-6 h-6 bg-metro-purple flex items-center justify-center text-white text-xs font-bold shrink-0">
-        📊
-      </div>
-      <div class="truncate">
-        <div class="text-xs font-semibold text-white">GoAccess Monitoring</div>
-        <div class="text-[11px] text-white/60 truncate">Real-time HTTP traffic analyzer</div>
-      </div>
-    </div>
-
-    <div class="flex items-center space-x-2 bg-white/5 p-2.5 border border-white/5">
-      <div class="w-6 h-6 bg-metro-teal flex items-center justify-center text-white text-xs font-bold shrink-0">
-        🐳
-      </div>
-      <div class="truncate">
-        <div class="text-xs font-semibold text-white">Docker VPS Compose</div>
-        <div class="text-[11px] text-white/60 truncate">Isolated networks & persistent volumes</div>
-      </div>
-    </div>
+    ))}
   </div>
 </div>
