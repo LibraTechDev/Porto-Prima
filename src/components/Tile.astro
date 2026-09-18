@@ -1,17 +1,11 @@
 ---
-interface LocalizedString {
-  id: string;
-  en: string;
-}
-
-interface LocalizedArray {
-  id: string[];
-  en: string[];
-}
+import { TILE_SIZE_CLASSES } from '@/constants/metro';
+import { cn } from '@/lib/cn';
+import type { LocalizedArray, LocalizedString, TileSize } from '@/types/content';
 
 export interface Props {
   id?: string;
-  size?: 'small' | 'standard' | 'wide' | 'large';
+  size?: TileSize;
   color?: string;
   title: string | LocalizedString;
   subtitle?: string | LocalizedString;
@@ -35,15 +29,7 @@ const {
   class: className = '',
 } = Astro.props;
 
-// Compute grid span classes based on size
-let sizeClasses = 'col-span-1 row-span-1 h-36 min-h-[9rem]';
-if (size === 'small') {
-  sizeClasses = 'col-span-1 row-span-1 h-20 min-h-[5rem]';
-} else if (size === 'wide') {
-  sizeClasses = 'col-span-1 sm:col-span-2 row-span-1 h-36 min-h-[9rem]';
-} else if (size === 'large') {
-  sizeClasses = 'col-span-1 sm:col-span-2 row-span-2 h-76 min-h-[19rem]';
-}
+const sizeClasses = TILE_SIZE_CLASSES[size] ?? TILE_SIZE_CLASSES.standard;
 
 const titleId = typeof title === 'object' ? title.id : title;
 const titleEn = typeof title === 'object' ? title.en : title;
@@ -54,7 +40,7 @@ const subtitleEn = subtitle ? (typeof subtitle === 'object' ? subtitle.en : subt
 
 <div
   id={id}
-  class={`metro-tile ${color} ${sizeClasses} p-4 flex flex-col justify-between select-none relative group ${className}`}
+  class={cn('metro-tile', color, sizeClasses, 'p-4 flex flex-col justify-between select-none relative group', className)}
   data-target={target}
   data-external-link={externalLink}
   role={target || externalLink ? 'button' : undefined}
