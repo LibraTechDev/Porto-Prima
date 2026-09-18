@@ -1,0 +1,54 @@
+---
+import { profile } from '../data/profile';
+---
+
+<!-- Windows 8-style lock screen: dismiss by clicking anywhere (see welcome controller) -->
+<div
+  id="welcome-screen"
+  class="welcome-screen"
+  role="button"
+  tabindex="0"
+  aria-label="Masuk ke portfolio / Enter portfolio"
+>
+  <div class="relative z-10 flex flex-col items-center text-center px-6 select-none">
+    <!-- Live clock -->
+    <div id="welcome-clock-time" class="text-7xl sm:text-8xl font-extralight tracking-tight text-white drop-shadow-lg tabular-nums">--:--</div>
+    <div id="welcome-clock-date" class="text-base sm:text-xl font-light text-white/85 mt-2 drop-shadow">…</div>
+
+    <!-- Identity -->
+    <div class="mt-8 flex items-center gap-3">
+      <div class="w-14 h-14 bg-metro-purple text-white flex items-center justify-center font-semibold text-lg border border-white/20 shadow-lg overflow-hidden shrink-0">
+        {profile.identity.avatar ? (
+          <img
+            src={profile.identity.avatar}
+            alt={profile.identity.fullName}
+            class="w-full h-full object-cover object-[center_20%]"
+            width="56"
+            height="56"
+            loading="eager"
+          />
+        ) : (
+          profile.identity.initials
+        )}
+      </div>
+      <div class="text-left">
+        <div class="text-white font-semibold text-lg leading-tight">{profile.identity.fullName}</div>
+        <div class="text-white/70 text-xs sm:text-sm font-light">
+          <span data-lang="id">Insinyur Perangkat Lunak</span>
+          <span data-lang="en" style="display: none;">Software Engineer</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enter hint -->
+    <div class="welcome-hint mt-12 flex flex-col items-center gap-2 text-white/90">
+      <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      </svg>
+      <span class="text-sm sm:text-base font-medium bg-black/40 border border-white/20 px-5 py-2 backdrop-blur-sm">
+        <span data-lang="id">Klik di mana saja untuk masuk</span>
+        <span data-lang="en" style="display: none;">Click anywhere to enter</span>
+      </span>
+    </div>
+  </div>
+</div>
