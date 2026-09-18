@@ -319,7 +319,7 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
             <span class="badge badge-sm rounded-none bg-metro-mango text-white border-none font-semibold uppercase tracking-wider">
               Featured Architecture
             </span>
-            <span class="text-xs text-white/60">Distributed Systems & IoT</span>
+            <span class="text-xs text-white/60">Distributed Systems & Analytics</span>
           </div>
           <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
             Fleet Management System
@@ -354,13 +354,13 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
           <div class="text-xs sm:text-sm text-white/80 space-y-2.5">
             <p>
               <strong class="text-white">PostgreSQL (OLTP):</strong>
-              <span data-lang="id"> Menangani operasi ACID transaksional seperti manajemen unit kendaraan, autentikasi sopir, dan status perjalanan aktif.</span>
-              <span data-lang="en" style="display: none;"> Handles transactional ACID operations including vehicle fleet catalog, driver auth, and live trip statuses.</span>
+              <span data-lang="id"> Menangani operasi ACID transaksional seperti manajemen unit kendaraan, autentikasi sopir, dan data reservasi operasional.</span>
+              <span data-lang="en" style="display: none;"> Handles transactional ACID operations including vehicle fleet catalog, driver auth, and operational reservation records.</span>
             </p>
             <p>
-              <strong class="text-white">DuckDB (OLAP) + Rust Worker:</strong>
-              <span data-lang="id"> Mengeksekusi agregasi metrik telemetri armada secara in-process dan columnar tanpa membebani database operasional PostgreSQL.</span>
-              <span data-lang="en" style="display: none;"> Executes sub-second aggregate telemetry computations using an in-process columnar engine without bottlenecking PostgreSQL.</span>
+              <strong class="text-white">DuckDB (OLAP) + Rust Service:</strong>
+              <span data-lang="id"> Service Rust mengeksekusi agregasi dashboard di atas PostgreSQL, sementara DuckDB in-process di backend mempercepat analitik dari snapshot yang disinkron tiap 5 menit tanpa membebani database operasional.</span>
+              <span data-lang="en" style="display: none;"> The Rust service runs dashboard aggregations over PostgreSQL, while in-process DuckDB in the backend accelerates analytics over snapshots synced every 5 minutes without bottlenecking the operational database.</span>
             </p>
           </div>
         </div>
@@ -380,8 +380,8 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
             </p>
             <p>
               <strong class="text-white">Docker Compose & Nginx:</strong>
-              <span data-lang="id"> Seluruh microservice dikemas dalam container terisolasi pada VPS dengan Nginx sebagai reverse proxy dan terminasi SSL/TLS.</span>
-              <span data-lang="en" style="display: none;"> Microservices are isolated in containerized VPS networks, fronted by Nginx with TLS termination and gzip caching.</span>
+              <span data-lang="id"> Seluruh microservice dikemas dalam container terisolasi pada VPS dengan Nginx sebagai reverse proxy (plus kompresi gzip & rate limiting).</span>
+              <span data-lang="en" style="display: none;"> Microservices are isolated in containerized VPS networks, fronted by Nginx reverse proxy with gzip compression and rate limiting.</span>
             </p>
             <p>
               <strong class="text-white">UFW, fail2ban, & GoAccess:</strong>

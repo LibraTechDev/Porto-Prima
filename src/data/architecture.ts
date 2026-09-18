@@ -11,16 +11,16 @@ export const ARCH_COLUMNS: Array<{ heading: string; dot: string; nodes: ArchNode
     heading: '1. Ingress & Client Layer',
     dot: 'bg-metro-cobalt',
     nodes: [
-      { title: 'Nginx Reverse Proxy', tag: 'TLS / Port 443', tagTone: 'bg-metro-cobalt', desc: 'Dockerized on VPS • SSL Termination • Rate Limiting & Ban Auditor', accent: 'border-l-metro-cobalt' },
-      { title: 'Vue.js 3 SPA', tag: 'Client GUI', tagTone: 'bg-metro-teal', desc: 'Pinia State • Vite Build • Real-time Telemetry Maps & Fleet Monitoring', accent: 'border-l-metro-teal' },
+      { title: 'Nginx Reverse Proxy', tag: 'Reverse Proxy / Port 80', tagTone: 'bg-metro-cobalt', desc: 'Dockerized on VPS • Gzip Compression • Rate Limiting & Ban Auditor', accent: 'border-l-metro-cobalt' },
+      { title: 'Vue.js 3 SPA', tag: 'Client GUI', tagTone: 'bg-metro-teal', desc: 'Pinia State • Vite Build • Chart Dashboards, Leaflet Maps & Polling Sync', accent: 'border-l-metro-teal' },
     ],
   },
   {
     heading: '2. Application & Compute',
     dot: 'bg-metro-emerald',
     nodes: [
-      { title: 'FastAPI Core Server', tag: 'Async Python', tagTone: 'bg-metro-emerald', desc: 'Auth, Operational CRUD APIs, WebSocket Streamer, Task Dispatcher', accent: 'border-l-metro-emerald' },
-      { title: 'Rust Engine Worker', tag: 'Zero-Cost Rust', tagTone: 'bg-metro-mango', desc: 'Raw Telemetry Ingestion, Parquet Crunching, Metric Aggregation Engine', accent: 'border-l-metro-mango' },
+      { title: 'FastAPI Core Server', tag: 'Async Python', tagTone: 'bg-metro-emerald', desc: 'Auth, Operational CRUD APIs, APScheduler Sync Jobs & Excel Imports', accent: 'border-l-metro-emerald' },
+      { title: 'Rust Engine Worker', tag: 'Zero-Cost Rust', tagTone: 'bg-metro-mango', desc: 'Axum Service • Dashboard & Matrix Aggregations over PostgreSQL', accent: 'border-l-metro-mango' },
     ],
   },
   {
@@ -28,7 +28,7 @@ export const ARCH_COLUMNS: Array<{ heading: string; dot: string; nodes: ArchNode
     dot: 'bg-metro-amber',
     nodes: [
       { title: 'PostgreSQL (OLTP)', tag: 'Relational', tagTone: 'bg-metro-cobalt', desc: 'ACID transactions: Fleet inventory, drivers, live trips, user authentication', accent: 'border-l-metro-cobalt' },
-      { title: 'DuckDB (OLAP)', tag: 'Columnar In-Process', tagTone: 'bg-metro-amber', desc: 'Sub-second analytical queries over millions of vehicle telematics rows', accent: 'border-l-metro-amber' },
+      { title: 'DuckDB (OLAP)', tag: 'Columnar In-Process', tagTone: 'bg-metro-amber', desc: 'In-process columnar analytics over Postgres-synced snapshots', accent: 'border-l-metro-amber' },
     ],
   },
 ];
