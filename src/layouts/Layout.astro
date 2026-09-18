@@ -7,7 +7,7 @@ interface Props {
   description?: string;
   /** Path kanonis relatif, default mengikuti URL halaman aktif. */
   canonicalPath?: string;
-  /** Path gambar OG relatif dari public/, default placeholder SVG (TODO: ganti PNG 1200x630). */
+  /** Path gambar OG relatif dari public/, berdimensi 1200x630. */
   ogImage?: string;
   /** Set true untuk halaman yang tidak boleh diindeks. */
   noindex?: boolean;
@@ -17,7 +17,7 @@ const {
   title = `${profile.identity.fullName} — Software Engineer`,
   description = "Dedicated Software Engineer building distributed systems with Vue.js, FastAPI, Rust, PostgreSQL, & DuckDB. Portofolio bergaya Windows 8 Metro UI.",
   canonicalPath = Astro.url?.pathname ?? '/',
-  ogImage = '/og-cover.svg',
+  ogImage = '/og-cover.png',
   noindex = false,
 } = Astro.props;
 
