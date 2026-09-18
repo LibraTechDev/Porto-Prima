@@ -20,7 +20,7 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
   <!-- Sticky header: action bar + mobile tab strip -->
   <div class="sticky top-0 z-50 select-none">
   <!-- Top App Bar -->
-  <div class="w-full bg-black/60 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3 flex items-center justify-between">
+  <div class="w-full bg-black/80 border-b border-white/10 px-4 sm:px-8 py-3 flex items-center justify-between">
     <!-- Back Button -->
     <button
       id="drawer-back-btn"
@@ -54,7 +54,7 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
   </div>
 
   <!-- Mobile/Tablet tab strip (horizontal scroll, same .drawer-nav-btn hooks) -->
-  <div class="lg:hidden bg-black/60 backdrop-blur-md border-b border-white/10 px-4 py-2 flex gap-1.5 overflow-x-auto">
+  <div class="lg:hidden bg-black/80 border-b border-white/10 px-4 py-2 flex gap-1.5 overflow-x-auto">
     {drawerTabs.map((t) => (
       <DrawerTabButton tab={t.id} class="shrink-0">
         <span data-lang="id">{t.label.id}</span>

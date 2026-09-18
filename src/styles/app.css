@@ -14,14 +14,17 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  /* FIX #1: Hapus background-attachment:fixed — di mobile menonaktifkan GPU
+     acceleration dan menyebabkan repaint penuh setiap frame scroll. */
   background: var(--metro-bg-gradient);
-  background-attachment: fixed;
   color: var(--metro-text);
   overflow-x: hidden;
   user-select: text;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+  /* FIX #7: hint ke browser bahwa scroll adalah gesture utama (hilangkan 300ms delay) */
+  touch-action: pan-y;
 }
 
 /* Catchy Digital Grid Pattern Overlay */
@@ -38,6 +41,8 @@ body::before {
   background-size: 32px 32px, 64px 64px, 64px 64px;
   background-position: center center;
   opacity: 0.85;
+  /* Grid pattern tidak berubah — promote ke own layer supaya tidak di-repaint */
+  will-change: transform;
 }
 
 /* Subtle Glowing Windows 8 Ambient Wave */
@@ -52,9 +57,14 @@ body::after {
   max-height: 900px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0, 164, 239, 0.18) 0%, rgba(104, 33, 122, 0.12) 50%, transparent 70%);
-  filter: blur(60px);
+  /* FIX #2: Kurangi blur radius dari 60px → 40px.
+     60px sangat mahal di mobile GPU (area sampling besar). 40px masih terlihat
+     bagus dan jauh lebih ringan. will-change: transform promote ke layer sendiri
+     sehingga tidak di-composite ulang saat scroll konten. */
+  filter: blur(40px);
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
 }
 
 /* Ensure contents sit above background effect */
@@ -90,7 +100,10 @@ header, main, footer {
   cursor: pointer;
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.35), 0 2px 6px -1px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(2px);
+  /* FIX #3: Hapus backdrop-filter: blur(2px) dari setiap tile.
+     Dengan belasan tile di layar sekaligus, browser membuat compositor layer
+     terpisah untuk setiap tile — ini menguras VRAM dan bandwidth compositing
+     di mobile. Warna semi-transparan sudah cukup untuk efek kedalaman visual. */
 }
 
 .metro-tile:hover {
@@ -137,6 +150,8 @@ header, main, footer {
 .metro-ticker-text {
   animation: metroTickerSlide 8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  /* FIX #5a: promote ke GPU layer agar animasi tidak merepaint tile di sekitarnya */
+  will-change: transform;
 }
 
 /* Custom Metro Scrollbar */
@@ -171,6 +186,9 @@ header, main, footer {
   transform: translateX(100%);
   transition: transform 0.28s cubic-bezier(0.1, 0.9, 0.2, 1);
   overflow-y: auto;
+  /* Scroll dalam drawer tidak terhalang oleh gesture detection */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 #metro-app-drawer.open,
@@ -190,7 +208,6 @@ header, main, footer {
   background-color: var(--color-base-100);
   background-image: var(--metro-bg-gradient);
   cursor: pointer;
-  /* Identik dengan transisi drawer agar terasa satu bahasa gerak */
   transition: transform 0.28s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
@@ -199,9 +216,27 @@ header, main, footer {
   pointer-events: none;
 }
 
+/* FIX #8: Hormati preferensi pengguna untuk mengurangi gerak */
 @media (prefers-reduced-motion: reduce) {
-  .welcome-screen {
+  .welcome-screen,
+  .metro-app-drawer,
+  #metro-app-drawer {
     transition: none;
+  }
+
+  .metro-ticker-text {
+    animation: none;
+  }
+
+  .metro-tile {
+    transition: none;
+  }
+
+  /* Matikan bounce & ping juga */
+  .animate-bounce,
+  .animate-ping,
+  .animate-pulse {
+    animation: none;
   }
 }
 
