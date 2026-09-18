@@ -1,9 +1,19 @@
 ---
 import { profile, i18nStrings } from '../data/profile';
+import { drawerTabs } from '../data/navigation';
 import ArchitectureDiagram from './ArchitectureDiagram.astro';
 import TechIcon from './TechIcon.astro';
+import SectionHeader from './molecules/SectionHeader.astro';
+import DrawerTabButton from './molecules/DrawerTabButton.astro';
+import Timeline from './organisms/Timeline.astro';
+import TimelineItem from './molecules/TimelineItem.astro';
+import PublicationCard from './organisms/PublicationCard.astro';
+import PublicationsHeader from './organisms/PublicationsHeader.astro';
+import ContactCard from './molecules/ContactCard.astro';
+import { sortBySintaRank } from '../lib/sinta';
 
 const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.projects[0];
+const sortedPubs = sortBySintaRank([...profile.publications]);
 ---
 
 <div id="metro-app-drawer" class="metro-app-drawer" role="dialog" aria-modal="true">
@@ -21,44 +31,14 @@ const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.proje
       <span data-lang="en" style="display: none;">{i18nStrings.en.backToStart}</span>
     </button>
 
-    <!-- App Navigation Tabs -->
+    <!-- App Navigation Tabs (data-driven) -->
     <div class="hidden lg:flex items-center space-x-1 overflow-x-auto py-1">
-      <button data-tab="about" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Tentang</span>
-        <span data-lang="en" style="display: none;">About</span>
-      </button>
-      <button data-tab="fms" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Fleet Management</span>
-        <span data-lang="en" style="display: none;">Fleet Management</span>
-      </button>
-      <button data-tab="experience" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Pengalaman</span>
-        <span data-lang="en" style="display: none;">Experience</span>
-      </button>
-      <button data-tab="organizations" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">{i18nStrings.id.organizations}</span>
-        <span data-lang="en" style="display: none;">{i18nStrings.en.organizations}</span>
-      </button>
-      <button data-tab="projects" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Proyek & GitLab</span>
-        <span data-lang="en" style="display: none;">Projects & GitLab</span>
-      </button>
-      <button data-tab="skills" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Keahlian</span>
-        <span data-lang="en" style="display: none;">Skills</span>
-      </button>
-      <button data-tab="publications" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Publikasi</span>
-        <span data-lang="en" style="display: none;">Publications</span>
-      </button>
-      <button data-tab="education" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Pendidikan</span>
-        <span data-lang="en" style="display: none;">Education</span>
-      </button>
-      <button data-tab="contact" class="drawer-nav-btn btn btn-xs rounded-none px-3 py-1 font-normal border border-white/10 text-white transition-all">
-        <span data-lang="id">Kontak</span>
-        <span data-lang="en" style="display: none;">Contact</span>
-      </button>
+      {drawerTabs.map((t) => (
+        <DrawerTabButton tab={t.id}>
+          <span data-lang="id">{t.label.id}</span>
+          <span data-lang="en" style="display: none;">{t.label.en}</span>
+        </DrawerTabButton>
+      ))}
     </div>
 
     <!-- Close Button -->
@@ -390,79 +370,35 @@ const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.proje
 
     <!-- ==================== TAB 3: EXPERIENCE (TIMELINE) ==================== -->
     <section id="tab-experience" class="drawer-tab-content hidden">
-      <div class="border-b border-white/15 pb-4 mb-6">
-        <div class="text-xs uppercase tracking-widest text-metro-emerald font-semibold">
-          <span data-lang="id">Rekam Jejak Karir</span>
-          <span data-lang="en" style="display: none;">Career Track Record</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
-          <span data-lang="id">Pengalaman Profesional</span>
-          <span data-lang="en" style="display: none;">Professional Experience</span>
-        </h2>
-        <p class="text-sm text-white/70 font-light mt-1">
-          <span data-lang="id">Total 2+ tahun berkarya di industri perangkat lunak & organisasi teknologi</span>
-          <span data-lang="en" style="display: none;">2+ years across software industry & technology organizations</span>
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow={{ id: 'Rekam Jejak Karir', en: 'Career Track Record' }}
+        eyebrowColor="text-metro-emerald"
+        title={{ id: 'Pengalaman Profesional', en: 'Professional Experience' }}
+        subtitle={{ id: 'Total 2+ tahun berkarya di industri perangkat lunak & organisasi teknologi', en: '2+ years across software industry & technology organizations' }}
+      />
 
-      <!-- daisyUI Timeline Component -->
-      <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-        {profile.experiences.map((exp, index) => {
-          const isLeft = index % 2 === 0;
-          return (
-            <li>
-              <div class="timeline-middle">
-                <div class={`w-4 h-4 ${exp.isCurrent ? 'bg-metro-emerald animate-pulse' : 'bg-metro-cobalt'} flex items-center justify-center`}>
-                  <div class="w-1.5 h-1.5 bg-white"></div>
-                </div>
-              </div>
-
-              <div class={`${isLeft ? 'timeline-start md:text-end' : 'timeline-end'} mb-10 bg-black/30 p-5 border border-white/10 hover:border-white/30 transition-colors`}>
-                <div class="flex items-center gap-2 flex-wrap mb-1" class:list={[isLeft ? 'md:justify-end' : '']}>
-                  <time class="font-mono text-xs text-metro-teal">
-                    <span data-lang="id">{exp.period.id}</span>
-                    <span data-lang="en" style="display: none;">{exp.period.en}</span>
-                  </time>
-                  {exp.isCurrent && (
-                    <span class="badge badge-xs bg-metro-emerald text-white border-none rounded-none text-[9px] uppercase font-bold tracking-wider">
-                      <span data-lang="id">Sekarang</span>
-                      <span data-lang="en" style="display: none;">Current</span>
-                    </span>
-                  )}
-                </div>
-
-                <h3 class="text-base sm:text-lg font-bold text-white">
-                  <span data-lang="id">{exp.role.id}</span>
-                  <span data-lang="en" style="display: none;">{exp.role.en}</span>
-                </h3>
-
-                <div class="text-xs text-white/80 font-semibold mb-2">
-                  <span>{exp.company}</span>
-                  <span class="mx-1.5">•</span>
-                  <span class="text-white/60">
-                    <span data-lang="id">{exp.location.id}</span>
-                    <span data-lang="en" style="display: none;">{exp.location.en}</span>
-                  </span>
-                </div>
-
-                <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed mb-3">
-                  <span data-lang="id">{exp.description.id}</span>
-                  <span data-lang="en" style="display: none;">{exp.description.en}</span>
-                </p>
-
-                <div class="flex flex-wrap gap-1.5" class:list={[isLeft ? 'md:justify-end' : '']}>
-                  {exp.badges.map((badge) => (
-                    <span class="badge badge-xs bg-white/10 text-white/90 border-none rounded-none text-[10px]">
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <hr class="bg-white/20" />
-            </li>
-          );
-        })}
-      </ul>
+      <Timeline>
+        {profile.experiences.map((exp, index) => (
+          <TimelineItem
+            index={index}
+            period={exp.period}
+            role={exp.role}
+            org={exp.company}
+            orgAccent="text-white"
+            location={exp.location}
+            description={exp.description}
+            badges={exp.badges}
+            dotTone={exp.isCurrent ? 'bg-metro-emerald animate-pulse' : 'bg-metro-cobalt'}
+          >
+            {exp.isCurrent && (
+              <span slot="meta" class="badge badge-xs bg-metro-emerald text-white border-none rounded-none text-[9px] uppercase font-bold tracking-wider">
+                <span data-lang="id">Sekarang</span>
+                <span data-lang="en" style="display: none;">Current</span>
+              </span>
+            )}
+          </TimelineItem>
+        ))}
+      </Timeline>
     </section>
 
     <!-- ==================== TAB: ORGANIZATIONS & LEADERSHIP ==================== -->
@@ -510,106 +446,41 @@ const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.proje
         </div>
       </div>
 
-      <!-- daisyUI Timeline Component for Organizations -->
-      <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-        {profile.organizations.map((org, index) => {
-          const isLeft = index % 2 === 0;
-          return (
-            <li>
-              <div class="timeline-middle">
-                <div class={`w-4 h-4 ${org.isHighlighted ? 'bg-metro-purple animate-pulse' : 'bg-metro-teal'} flex items-center justify-center shadow-sm`}>
-                  <div class="w-1.5 h-1.5 bg-white"></div>
-                </div>
-              </div>
-
-              <div class={`${isLeft ? 'timeline-start md:text-end' : 'timeline-end'} mb-10 bg-black/30 p-5 border border-white/10 hover:border-white/30 transition-colors`}>
-                <div class="flex items-center gap-2 flex-wrap mb-1" class:list={[isLeft ? 'md:justify-end' : '']}>
-                  <time class="font-mono text-xs text-metro-teal font-semibold">
-                    <span data-lang="id">{org.period.id}</span>
-                    <span data-lang="en" style="display: none;">{org.period.en}</span>
-                  </time>
-                  {org.duration && (
-                    <span class="badge badge-xs bg-white/15 text-white/90 border-none rounded-none text-[9px] font-mono">
-                      {org.duration}
-                    </span>
-                  )}
-                  {org.isHighlighted && (
-                    <span class="badge badge-xs bg-metro-purple text-white border-none rounded-none text-[9px] uppercase font-bold">
-                      Key Role
-                    </span>
-                  )}
-                </div>
-
-                <h3 class="text-base sm:text-lg font-bold text-white">
-                  <span data-lang="id">{org.role.id}</span>
-                  <span data-lang="en" style="display: none;">{org.role.en}</span>
-                </h3>
-
-                <div class="text-xs text-white/80 font-semibold mb-2">
-                  <span class="text-metro-mango">{org.organization}</span>
-                  {org.category && (
-                    <>
-                      <span class="mx-1.5">•</span>
-                      <span class="text-white/60">{org.category}</span>
-                    </>
-                  )}
-                </div>
-
-                <p class="text-xs sm:text-sm text-white/80 font-light leading-relaxed mb-3">
-                  <span data-lang="id">{org.description.id}</span>
-                  <span data-lang="en" style="display: none;">{org.description.en}</span>
-                </p>
-
-                {org.badges && (
-                  <div class="flex flex-wrap gap-1.5 mb-3" class:list={[isLeft ? 'md:justify-end' : '']}>
-                    {org.badges.map((badge) => (
-                      <span class="badge badge-xs bg-white/10 text-white/90 border-none rounded-none text-[10px]">
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {(org.certificateUrl || org.detailsUrl) && (
-                  <div class="flex flex-wrap gap-2 pt-2 border-t border-white/10" class:list={[isLeft ? 'md:justify-end' : '']}>
-                    {org.certificateUrl && (
-                      <a
-                        href={org.certificateUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-xs rounded-none bg-metro-mango hover:bg-metro-mango/80 text-white border-none gap-1 font-normal inline-flex items-center shadow-sm"
-                      >
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
-                        </svg>
-                        <span data-lang="id">Sertifikat Panitia</span>
-                        <span data-lang="en" style="display: none;">Committee Certificate</span>
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    )}
-                    {org.detailsUrl && (
-                      <a
-                        href={org.detailsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-xs rounded-none bg-white/10 hover:bg-white/20 text-white border-none gap-1 font-normal inline-flex items-center"
-                      >
-                        <span>LinkedIn</span>
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-              <hr class="bg-white/20" />
-            </li>
-          );
-        })}
-      </ul>
+      <Timeline>
+        {profile.organizations.map((org, index) => (
+          <TimelineItem
+            index={index}
+            period={org.period}
+            role={org.role}
+            org={org.organization}
+            orgAccent="text-metro-mango"
+            description={org.description}
+            badges={org.badges ?? []}
+            dotTone={org.isHighlighted ? 'bg-metro-purple animate-pulse' : 'bg-metro-teal'}
+            certificateUrl={org.certificateUrl}
+            detailsUrl={org.detailsUrl}
+            certLabelId="Sertifikat Panitia"
+            certLabelEn="Committee Certificate"
+          >
+            <span slot="meta">
+              {org.duration && (
+                <span class="badge badge-xs bg-white/15 text-white/90 border-none rounded-none text-[9px] font-mono mr-1">{org.duration}</span>
+              )}
+              {org.isHighlighted && (
+                <span class="badge badge-xs bg-metro-purple text-white border-none rounded-none text-[9px] uppercase font-bold">Key Role</span>
+              )}
+            </span>
+            <span slot="sub">
+              {org.category && (
+                <>
+                  <span class="mx-1.5">•</span>
+                  <span class="text-white/60">{org.category}</span>
+                </>
+              )}
+            </span>
+          </TimelineItem>
+        ))}
+      </Timeline>
     </section>
 
     <!-- ==================== TAB 4: PROJECTS & GITLAB ==================== -->
@@ -948,69 +819,12 @@ const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.proje
     </section>
 
     <!-- ==================== TAB 6: PUBLICATIONS ==================== -->
-    <section id="tab-publications" class="drawer-tab-content hidden">
-      <div class="border-b border-white/15 pb-4 mb-6">
-        <div class="text-xs uppercase tracking-widest text-metro-mango font-semibold">
-          <span data-lang="id">Karya Ilmiah</span>
-          <span data-lang="en" style="display: none;">Scientific Works</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
-          <span data-lang="id">Publikasi & Desain Konseptual</span>
-          <span data-lang="en" style="display: none;">Publications & Conceptual Designs</span>
-        </h2>
-      </div>
+    <section id="tab-publications" class="drawer-tab-content hidden" aria-label="Publications">
+      <PublicationsHeader pubs={profile.publications} />
 
       <div class="space-y-6">
-        {profile.publications.map((pub) => (
-          <div class="bg-black/30 border border-white/10 p-6 hover:border-white/30 transition-colors flex flex-col justify-between">
-            <div>
-              <div class="flex flex-wrap items-center gap-2 mb-2">
-                <span class="badge badge-sm rounded-none bg-metro-mango text-white border-none font-semibold uppercase text-[10px] tracking-wider">
-                  {pub.journal}
-                </span>
-                {pub.sinta && (
-                  <span class="badge badge-sm rounded-none bg-metro-emerald text-white border-none font-bold uppercase text-[10px] tracking-wider">
-                    {pub.sinta}
-                  </span>
-                )}
-                <span class="text-xs font-mono text-white/60">
-                  {pub.volume} • {pub.year}
-                </span>
-              </div>
-
-              <h3 class="text-xl font-bold text-white">
-                <span data-lang="id">{pub.title.id}</span>
-                <span data-lang="en" style="display: none;">{pub.title.en}</span>
-              </h3>
-
-              {pub.note && (
-                <div class="mt-3 p-3 bg-white/5 border-l-2 border-metro-amber text-xs text-white/80">
-                  <span data-lang="id">{pub.note.id}</span>
-                  <span data-lang="en" style="display: none;">{pub.note.en}</span>
-                </div>
-              )}
-            </div>
-
-            {pub.link && (
-              <div class="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <span class="text-[11px] text-white/50 font-mono truncate max-w-xs sm:max-w-md">
-                  {pub.link}
-                </span>
-                <a
-                  href={pub.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn btn-xs rounded-none bg-metro-mango hover:bg-metro-mango/80 text-white border-none gap-1.5 font-normal inline-flex items-center shrink-0"
-                >
-                  <span data-lang="id">Buka Artikel Jurnal</span>
-                  <span data-lang="en" style="display: none;">Read Journal Article</span>
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-              </div>
-            )}
-          </div>
+        {sortedPubs.map((pub) => (
+          <PublicationCard pub={pub} />
         ))}
       </div>
     </section>
@@ -1060,111 +874,19 @@ const fmsProject = profile.projects.find((p) => p.id === 'fms') || profile.proje
 
     <!-- ==================== TAB 8: CONTACT ==================== -->
     <section id="tab-contact" class="drawer-tab-content hidden">
-      <div class="border-b border-white/15 pb-4 mb-6">
-        <div class="text-xs uppercase tracking-widest text-metro-crimson font-semibold">
-          <span data-lang="id">Terhubung</span>
-          <span data-lang="en" style="display: none;">Get In Touch</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-light text-white tracking-tight mt-1">
-          <span data-lang="id">Kontak & Jaringan Sosial</span>
-          <span data-lang="en" style="display: none;">Contact & Social Networks</span>
-        </h2>
-      </div>
+      <SectionHeader
+        eyebrow={{ id: 'Terhubung', en: 'Get In Touch' }}
+        eyebrowColor="text-metro-crimson"
+        title={{ id: 'Kontak & Jaringan Sosial', en: 'Contact & Social Networks' }}
+      />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Email -->
-        <a
-          href={`mailto:${profile.contact.email}`}
-          class="bg-metro-crimson p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
-        >
-          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">Email</div>
-          <div class="my-4 font-bold text-base truncate">{profile.contact.email}</div>
-          <div class="text-xs text-white/80 flex items-center justify-between">
-            <span>Kirim Pesan</span>
-            <span>→</span>
-          </div>
-        </a>
-
-        <!-- LinkedIn -->
-        <a
-          href={profile.contact.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-metro-cobalt p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
-        >
-          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">LinkedIn</div>
-          <div class="my-4 font-bold text-base truncate">in/primavieri</div>
-          <div class="text-xs text-white/80 flex items-center justify-between">
-            <span>Buka Profil</span>
-            <span>↗</span>
-          </div>
-        </a>
-
-        <!-- GitLab -->
-        <a
-          href={profile.contact.gitlab}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-metro-purple p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
-        >
-          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">GitLab (Enterprise)</div>
-          <div class="my-4 font-bold text-base truncate">gitlab.com/LibraTechDev</div>
-          <div class="text-xs text-white/80 flex items-center justify-between">
-            <span>Buka GitLab</span>
-            <span>↗</span>
-          </div>
-        </a>
-
-        <!-- GitHub -->
-        <a
-          href={profile.contact.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-metro-steel p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
-        >
-          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">GitHub</div>
-          <div class="my-4 font-bold text-base truncate">github.com/LibraTechDev</div>
-          <div class="text-xs text-white/80 flex items-center justify-between">
-            <span>Buka Repositori</span>
-            <span>↗</span>
-          </div>
-        </a>
-
-        <!-- Instagram -->
-        <a
-          href={profile.contact.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-metro-mango p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
-        >
-          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold">Instagram</div>
-          <div class="my-4 font-bold text-base truncate">@prmvri</div>
-          <div class="text-xs text-white/80 flex items-center justify-between">
-            <span>Buka Instagram</span>
-            <span>↗</span>
-          </div>
-        </a>
-
-        <!-- Curriculum Vitae (PDF) -->
-        <a
-          href={profile.contact.cv}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-metro-crimson p-5 text-white flex flex-col justify-between hover:brightness-110 transition-all cursor-pointer select-none"
-        >
-          <div class="text-xs uppercase tracking-wider text-white/75 font-semibold flex items-center justify-between">
-            <span>Curriculum Vitae</span>
-            <span class="badge badge-xs bg-white/25 text-white border-none rounded-none text-[9px] uppercase font-bold">PDF Drive</span>
-          </div>
-          <div class="my-4 font-bold text-base truncate">Primavieri Rhesa Ardana</div>
-          <div class="text-xs text-white/80 flex items-center justify-between">
-            <span data-lang="id">Unduh / Buka Dokumen CV</span>
-            <span data-lang="en" style="display: none;">Download / Open CV</span>
-            <span>↗</span>
-          </div>
-        </a>
-
-        <!-- Location Badge -->
+        <ContactCard label="Email" value={profile.contact.email} sub="Kirim Pesan →" href={`mailto:${profile.contact.email}`} tone="bg-metro-crimson" />
+        <ContactCard label="LinkedIn" value="in/primavieri" sub="Buka Profil" href={profile.contact.linkedin} tone="bg-metro-cobalt" />
+        <ContactCard label="GitLab (Enterprise)" value="gitlab.com/LibraTechDev" sub="Buka GitLab" href={profile.contact.gitlab} tone="bg-metro-purple" />
+        <ContactCard label="GitHub" value="github.com/LibraTechDev" sub="Buka Repositori" href={profile.contact.github} tone="bg-metro-steel" />
+        <ContactCard label="Instagram" value="@prmvri" sub="Buka Instagram" href={profile.contact.instagram} tone="bg-metro-mango" />
+        <ContactCard label="Curriculum Vitae" value="Primavieri Rhesa Ardana" sub="Unduh / Buka Dokumen CV ↗" href={profile.contact.cv} tone="bg-metro-crimson" />
         <div class="bg-black/30 border border-white/10 p-5 text-white flex flex-col justify-between select-none">
           <div class="text-xs uppercase tracking-wider text-white/60 font-semibold">Domisili</div>
           <div class="my-4 font-bold text-base">Semarang, Jawa Tengah</div>
