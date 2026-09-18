@@ -1,0 +1,11 @@
+# Jalankan: PORT=8080 docker compose up -d --build
+# Di VPS taruh di belakang reverse proxy (Nginx/Caddy) yang terminasi HTTPS.
+services:
+  porto:
+    build: .
+    image: porto-win8
+    container_name: porto-win8
+    restart: unless-stopped
+    ports:
+      # Bind ke localhost saja — yang boleh bicara ke container hanya Nginx host.
+      - "127.0.0.1:${PORT:-8080}:80"
