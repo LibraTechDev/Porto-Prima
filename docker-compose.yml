@@ -5,8 +5,10 @@
 # (PORT default 8081 agar tidak tabrakan dengan frontend trac di 8080.)
 services:
   porto:
+    # Build lokal (Dockge Deploy) atau image GHCR dari CI (docker compose pull).
     build: .
-    image: porto-win8
+    image: ghcr.io/libratechdev/porto-prima:latest
+    pull_policy: always
     container_name: porto-win8
     restart: unless-stopped
     ports:
