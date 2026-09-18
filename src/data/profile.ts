@@ -811,7 +811,6 @@ export const profile: ProfileData = {
 
 export const i18nStrings = {
   id: {
-    startScreen: "Mulai",
     subtitle: "Insinyur Perangkat Lunak & Sistem Terdistribusi",
     quickActions: "Tindakan Cepat",
     allApps: "Semua Aplikasi & Portofolio",
@@ -841,7 +840,6 @@ export const i18nStrings = {
     confidentialNotice: "Proyek privat perusahaan; kode sumber dijaga kerahasiaannya.",
   },
   en: {
-    startScreen: "Start",
     subtitle: "Software Engineer & Distributed Systems",
     quickActions: "Quick Actions",
     allApps: "All Applications & Portfolio",
