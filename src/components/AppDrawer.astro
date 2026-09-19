@@ -905,6 +905,18 @@ const sortedPubs = sortBySintaRank([...profile.publications]);
         title={{ id: 'Kontak & Jaringan Sosial', en: 'Contact & Social Networks' }}
       />
 
+      <div class="bg-metro-emerald text-white p-5 mb-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 shadow-md select-none">
+        <span class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider shrink-0">
+          <span class="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></span>
+          <span data-lang="id">Terbuka untuk Proyek</span>
+          <span data-lang="en" style="display: none;">Open for Projects</span>
+        </span>
+        <span class="text-sm text-white/90 font-light">
+          <span data-lang="id">Full-time & freelance pembuatan website dan aplikasi — hubungi via email atau LinkedIn di bawah.</span>
+          <span data-lang="en" style="display: none;">Full-time & freelance website and app development — reach out via email or LinkedIn below.</span>
+        </span>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <ContactCard label="Email" value={profile.contact.email} sub="Kirim Pesan →" href={`mailto:${profile.contact.email}`} tone="bg-metro-crimson" />
         <ContactCard label="LinkedIn" value="in/primavieri" sub="Buka Profil" href={profile.contact.linkedin} tone="bg-metro-cobalt" />
