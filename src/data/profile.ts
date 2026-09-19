@@ -137,7 +137,7 @@ export const profile: ProfileData = {
     github: "https://github.com/LibraTechDev",
     gitlab: "https://gitlab.com/LibraTechDev",
     instagram: "https://instagram.com/prmvri",
-    cv: "https://drive.google.com/file/d/1EwA-55GMcQwmozEwhkMWPgpTUSfYFli3/view?usp=sharing",
+    cv: "https://drive.google.com/file/d/1LnreeN-eS3tHbDuUIu3WKHl-TAvucVgb/view?usp=sharing",
   },
   experiences: [
     {
