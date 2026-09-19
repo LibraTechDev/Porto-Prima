@@ -458,7 +458,7 @@ export const profile: ProfileData = {
         id: "Multi-Tier LMS Serat Kartini",
         en: "Multi-Tier LMS Serat Kartini",
       },
-      journal: "JISI (Jurnal Integrasi Sistem Industri)",
+      journal: "ISI (Journal of Information System and Informatics)",
       volume: "Vol 7 No 4",
       year: "Desember 2025",
       sinta: "S2",
