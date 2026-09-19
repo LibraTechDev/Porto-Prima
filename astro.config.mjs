@@ -8,7 +8,11 @@ const SITE_URL = 'https://primavieri.id';
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

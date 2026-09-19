@@ -1,0 +1,264 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
+---
+
+<Layout
+  title={`404: Halaman Tidak Ditemukan | ${profile.identity.fullName}`}
+  description="Halaman yang Anda tuju tidak ditemukan. Kembali ke layar utama portofolio Primavieri Rhesa Ardana."
+  canonicalPath="/404"
+  noindex={true}
+>
+  <!-- Top Navigation Bar -->
+  <header class="w-full bg-black/70 border-b border-white/10 sticky top-0 z-40 select-none">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Back to Home Link / Brand -->
+      <div class="flex items-center space-x-3">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold px-3 py-1.5 border border-white/20 transition-colors"
+          title="Kembali ke Beranda / Back to Start"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span data-lang="id">Mulai</span>
+          <span data-lang="en" style="display: none;">Start</span>
+        </a>
+        <span class="text-xs text-white/40 hidden sm:inline-block">|</span>
+        <span class="text-sm text-white/80 font-normal hidden sm:inline-block">{profile.identity.fullName}</span>
+      </div>
+
+      <!-- Live clock -->
+      <div class="hidden md:flex items-center space-x-3 bg-white/5 px-3 py-1 border border-white/10">
+        <span id="win8-clock-time" class="text-lg font-light tracking-wider text-white">--:--</span>
+        <span class="text-xs text-white/40">•</span>
+        <span id="win8-clock-date" class="text-xs font-normal text-white/75">---</span>
+      </div>
+
+      <!-- Controls: Language Switcher, Theme Switcher -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- Language Switcher -->
+        <div class="join border border-white/20 p-0.5 bg-black/20">
+          <button
+            id="btn-lang-id"
+            class="btn btn-xs rounded-none border-none px-2.5 transition-colors"
+            title="Bahasa Indonesia"
+          >
+            ID
+          </button>
+          <button
+            id="btn-lang-en"
+            class="btn btn-xs rounded-none border-none px-2.5 transition-colors"
+            title="English"
+          >
+            EN
+          </button>
+        </div>
+
+        <!-- Theme Switcher -->
+        <button
+          id="btn-theme-toggle"
+          class="btn btn-xs btn-outline rounded-none border-white/30 text-white hover:bg-white/20 hover:border-white gap-1 px-2.5"
+          title="Toggle Metro / Metro Dark Theme"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <span id="theme-icon-label" class="hidden sm:inline text-[11px] font-normal">Metro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main 404 Metro Presentation -->
+  <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 flex-1 flex flex-col justify-center">
+    <!-- Status Badge -->
+    <div class="inline-flex items-center gap-2 bg-black/60 border border-white/20 px-3 py-1 mb-6 self-start shadow-sm select-none">
+      <span class="w-2.5 h-2.5 bg-metro-crimson inline-block animate-pulse"></span>
+      <span class="text-xs sm:text-sm font-bold text-white tracking-widest uppercase">ERROR 0x00000404 // NOT_FOUND</span>
+    </div>
+
+    <!-- Iconic Metro Sad Emoticon & 404 Heading -->
+    <div class="mb-6 select-none">
+      <h1 class="text-7xl sm:text-8xl md:text-9xl font-light text-white tracking-tight leading-none font-display flex items-baseline gap-4">
+        <span>:(</span>
+        <span class="text-3xl sm:text-5xl md:text-6xl text-white/35 font-light font-mono">404</span>
+      </h1>
+    </div>
+
+    <!-- Primary Message -->
+    <div class="mb-8 max-w-3xl">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight mb-3 font-display">
+        <span data-lang="id">Halaman yang Anda tuju tidak ditemukan.</span>
+        <span data-lang="en" style="display: none;">The page you are looking for was not found.</span>
+      </h2>
+      <p class="text-base sm:text-lg text-white/80 font-light leading-relaxed">
+        <span data-lang="id">
+          Tautan yang Anda ikuti mungkin salah ketik, telah dipindahkan, atau sistem kami tidak dapat menemukannya. Silakan gunakan tile di bawah ini untuk kembali ke navigasi utama.
+        </span>
+        <span data-lang="en" style="display: none;">
+          The link you followed may be mistyped, moved, or is no longer available. Please use the navigation tiles below to return to the primary portfolio views.
+        </span>
+      </p>
+    </div>
+
+    <!-- System Diagnostics Card (Metro Console Style) -->
+    <div class="bg-black/60 border border-white/15 p-4 sm:p-5 max-w-2xl mb-10 shadow-lg select-none">
+      <div class="flex items-center justify-between pb-2 mb-3 border-b border-white/10 text-[11px] font-mono tracking-wider text-white/50">
+        <span>SYSTEM DIAGNOSTICS</span>
+        <span class="text-metro-emerald font-semibold">HTTP 404</span>
+      </div>
+      <div class="space-y-1.5 font-mono text-xs text-white/80">
+        <div class="flex items-start gap-2">
+          <span class="text-white/40 select-none">&gt;</span>
+          <span class="text-white/50">REQUESTED_URI:</span>
+          <span id="notfound-path" class="text-metro-mango font-semibold break-all">/</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-white/40 select-none">&gt;</span>
+          <span class="text-white/50">RESOLUTION:</span>
+          <span class="text-white/90">
+            <span data-lang="id">Arahkan kembali ke Start Screen atau hubungi pengembang</span>
+            <span data-lang="en" style="display: none;">Reroute back to Start Screen or contact developer</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metro Quick Navigation Tiles -->
+    <div class="select-none">
+      <h3 class="text-xs sm:text-sm font-bold text-white/70 uppercase tracking-widest mb-4">
+        <span data-lang="id">Pilihan Navigasi Cepat</span>
+        <span data-lang="en" style="display: none;">Quick Navigation Choices</span>
+      </h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Tile 1: Home / Start Screen -->
+        <a
+          href="/"
+          class="metro-tile bg-metro-cobalt p-5 flex flex-col justify-between min-h-[140px] group border border-white/20 transition-all"
+        >
+          <div class="flex items-center justify-between">
+            <div class="bg-black/30 p-2 border border-white/20">
+              <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <span class="text-[11px] uppercase tracking-wider font-semibold text-white/70 bg-black/30 px-2 py-0.5">Primary</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-base sm:text-lg font-bold text-white leading-snug">
+              <span data-lang="id">Layar Mulai</span>
+              <span data-lang="en" style="display: none;">Start Screen</span>
+            </div>
+            <div class="text-xs text-white/80 mt-1 font-light">
+              <span data-lang="id">Kembali ke beranda portofolio</span>
+              <span data-lang="en" style="display: none;">Return to portfolio home</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tile 2: Projects -->
+        <a
+          href="/"
+          class="metro-tile bg-metro-teal p-5 flex flex-col justify-between min-h-[140px] group border border-white/20 transition-all"
+        >
+          <div class="flex items-center justify-between">
+            <div class="bg-black/30 p-2 border border-white/20">
+              <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <span class="text-[11px] uppercase tracking-wider font-semibold text-white/70 bg-black/30 px-2 py-0.5">Showcase</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-base sm:text-lg font-bold text-white leading-snug">
+              <span data-lang="id">Proyek Unggulan</span>
+              <span data-lang="en" style="display: none;">Featured Projects</span>
+            </div>
+            <div class="text-xs text-white/80 mt-1 font-light">
+              <span data-lang="id">FMS, ERP, &amp; App Produksi</span>
+              <span data-lang="en" style="display: none;">FMS, ERP, &amp; Production Apps</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tile 3: Experience & About -->
+        <a
+          href="/"
+          class="metro-tile bg-metro-purple p-5 flex flex-col justify-between min-h-[140px] group border border-white/20 transition-all"
+        >
+          <div class="flex items-center justify-between">
+            <div class="bg-black/30 p-2 border border-white/20">
+              <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <span class="text-[11px] uppercase tracking-wider font-semibold text-white/70 bg-black/30 px-2 py-0.5">Profile</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-base sm:text-lg font-bold text-white leading-snug">
+              <span data-lang="id">Tentang Pengembang</span>
+              <span data-lang="en" style="display: none;">About Developer</span>
+            </div>
+            <div class="text-xs text-white/80 mt-1 font-light">
+              <span data-lang="id">Pengalaman, sertifikasi, &amp; stack</span>
+              <span data-lang="en" style="display: none;">Experience, certs &amp; stack</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tile 4: Contact -->
+        <a
+          href={`mailto:${profile.contact.email}`}
+          class="metro-tile bg-metro-emerald p-5 flex flex-col justify-between min-h-[140px] group border border-white/20 transition-all"
+        >
+          <div class="flex items-center justify-between">
+            <div class="bg-black/30 p-2 border border-white/20">
+              <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <span class="text-[11px] uppercase tracking-wider font-semibold text-white/70 bg-black/30 px-2 py-0.5">Direct</span>
+          </div>
+          <div class="mt-4">
+            <div class="text-base sm:text-lg font-bold text-white leading-snug">
+              <span data-lang="id">Hubungi Saya</span>
+              <span data-lang="en" style="display: none;">Get in Touch</span>
+            </div>
+            <div class="text-xs text-white/80 mt-1 font-light">
+              <span data-lang="id">{profile.contact.email}</span>
+              <span data-lang="en" style="display: none;">{profile.contact.email}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Start Screen Footer Note -->
+  <footer class="w-full border-t border-white/10 select-none">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 gap-2">
+      <div>
+        <span>© 2026 {profile.identity.fullName} • Metro Portfolio</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-metro-emerald inline-block"></span>
+          <span>HTTP 404 Handled</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script: Display actual requested path in diagnostics -->
+  <script is:inline>
+    try {
+      var pathEl = document.getElementById('notfound-path');
+      if (pathEl && typeof window !== 'undefined') {
+        pathEl.textContent = window.location.pathname || '/';
+      }
+    } catch (e) {}
+  </script>
+</Layout>
